@@ -1,23 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 105" width="440" height="105">
-  <g transform="translate(6, 2)">
-    <!-- Left Top Lid -->
-    <path d="M 14,32 L 32,20 L 44,28 L 26,40 Z" fill="#0f172a" />
-    <!-- Left Vertical Face -->
-    <path d="M 14,32 L 26,40 L 26,76 L 14,68 Z" fill="#0f172a" opacity="0.9" />
-    <!-- Center Descending Ribbon Fold -->
-    <path d="M 26,40 L 44,28 L 62,44 L 44,56 Z" fill="#0f172a" opacity="0.75" />
-    <!-- Center Ascending Ribbon Fold -->
-    <path d="M 26,76 L 44,88 L 60,74 L 42,62 Z" fill="#0f172a" opacity="0.6" />
-    <!-- Right Arch & Pillar -->
-    <path d="M 62,44 L 78,32 L 78,74 L 66,74 L 66,54 L 44,56 Z" fill="#0f172a" />
-    <!-- Bottom Cap -->
-    <path d="M 14,68 L 26,76 L 36,84 L 24,76 Z" fill="#0f172a" opacity="0.5" />
-    <!-- Floating Data Pixels -->
-    <rect x="56" y="8" width="6.5" height="6.5" rx="1.2" fill="#0f172a" />
-    <rect x="66" y="8" width="6.5" height="6.5" rx="1.2" fill="#0f172a" opacity="0.85" />
-    <rect x="50" y="18" width="6.5" height="6.5" rx="1.2" fill="#0f172a" />
-    <rect x="60" y="18" width="6.5" height="6.5" rx="1.2" fill="#0f172a" opacity="0.9" />
-    <rect x="70" y="18" width="6.5" height="6.5" rx="1.2" fill="#0f172a" opacity="0.75" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 100" width="420" height="100">
+  <g transform="translate(10, 0)">
+    
+    <path d="M 14,32 L 32,20 L 44,28 L 26,40 Z" fill="#121113" />
+    <path d="M 14,32 L 26,40 L 26,76 L 14,68 Z" fill="#121113" opacity="0.9" />
+    <path d="M 26,40 L 44,28 L 62,44 L 44,56 Z" fill="#121113" opacity="0.75" />
+    <path d="M 26,76 L 44,88 L 60,74 L 42,62 Z" fill="#121113" opacity="0.6" />
+    <path d="M 62,44 L 78,32 L 78,74 L 66,74 L 66,54 L 44,56 Z" fill="#121113" />
+    <path d="M 14,68 L 26,76 L 36,84 L 24,76 Z" fill="#121113" opacity="0.5" />
+    <rect x="56" y="8" width="6.5" height="6.5" rx="1.2" fill="#121113" />
+    <rect x="66" y="8" width="6.5" height="6.5" rx="1.2" fill="#121113" opacity="0.85" />
+    <rect x="50" y="18" width="6.5" height="6.5" rx="1.2" fill="#121113" />
+    <rect x="60" y="18" width="6.5" height="6.5" rx="1.2" fill="#121113" opacity="0.9" />
+    <rect x="70" y="18" width="6.5" height="6.5" rx="1.2" fill="#121113" opacity="0.75" />
+    
   </g>
-  <text x="120" y="68" font-family="'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="800" font-size="48" fill="#0f172a" letter-spacing="-0.03em">MLForge</text>
+  <text x="125" y="66" font-family="'Geist Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="700" font-size="44" fill="#121113" letter-spacing="-0.03em">MLForge</text>
 </svg>
