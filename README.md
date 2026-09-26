@@ -1,6 +1,6 @@
 <!-- 🌌 MLFORGE HEADER -->
 <p align="center">
-  <img src="assets/branding/logo/mlforge-logo-primary.svg" alt="MLForge Logo" width="420"/>
+  <img src="assets/branding/logo/mlforge-logo-primary.png" alt="MLForge Logo" width="480"/>
 </p>
 
 <p align="center">
