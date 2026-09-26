@@ -1,349 +1,245 @@
-<!-- 🌌 HEADER -->
+<!-- 🌌 MLFORGE HEADER -->
 <p align="center">
-  <img src="assets/branding/logo/mlforge-logo-primary.svg" alt="MLForge Logo" width="380"/>
-</p>
-<p align="center">
-  <strong>Enterprise Automated Machine Learning & Experimentation Platform</strong>
+  <img src="assets/branding/logo/mlforge-logo-primary.svg" alt="MLForge Logo" width="420"/>
 </p>
 
----
+<p align="center">
+  <strong>Enterprise Automated Machine Learning & Experimentation Workspace</strong><br>
+  <em>Build &bull; Train &bull; Evaluate &bull; Explain &bull; Deploy</em>
+</p>
 
-# MLForge  
-### Advanced AutoML Data Cleaning, Clustering & Model Export Platform
-
-An **end-to-end Machine Learning Platform (MLForge)** that allows you to **upload, clean, preprocess, analyze, cluster, train, and export models** — all in one powerful interface.
-
-🔗 **Live Project Link:** [Click Here to View App](https://mlforge.streamlit.app/)
-
----
-
-# 🚀 Description
-
-MLForge is a **complete AutoML pipeline system** designed for:
-
-- Data Cleaning  
-- Smart Preprocessing  
-- Automated Model Training  
-- Clustering & Visualization  
-- Multi-format Model Export  
-
-It eliminates manual effort and provides **AI-assisted decision-making at every step**.
+<p align="center">
+  <a href="https://github.com/AlokRana01/MLForge-"><img src="https://img.shields.io/badge/GitHub-AlokRana01%2FMLForge--121113?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Repo"/></a>
+  <img src="https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-e78a53?style=for-the-badge&logo=python&logoColor=white" alt="Python Version"/>
+  <img src="https://img.shields.io/badge/Streamlit-App-5f8787?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit"/>
+  <img src="https://img.shields.io/badge/Tests-Passing-10b981?style=for-the-badge&logo=pytest&logoColor=white" alt="Tests"/>
+  <img src="https://img.shields.io/badge/License-MIT-fbcb97?style=for-the-badge&logoColor=121113" alt="License"/>
+</p>
 
 ---
 
-# 🎯 Key Features
+## 🌟 Overview
 
-- 📂 Multi-format file upload (CSV, Excel, JSON, XML, YAML, SQLite)
-- 🔍 Advanced Data Profiling
-- 🧹 Intelligent Missing Value Handling
-- ♻️ Smart Duplicate Removal
-- ⚙️ Automated Preprocessing (Encoding + Scaling)
-- 🤖 AutoML Model Training (Classification & Regression)
-- 📊 Clustering (KMeans, DBSCAN, Agglomerative)
-- 📈 Interactive Visualization Dashboard
-- 📑 AI-generated insights & reports
-- 💾 Export data + models (Pickle, Joblib, ONNX, TensorFlow, Torch)
+**MLForge** is an enterprise-grade Automated Machine Learning (AutoML) platform and experimentation studio built for data scientists, machine learning engineers, and developers. It unifies the complete machine learning lifecycle into an intuitive, high-density SaaS interface:
 
-# 🏆 Comparison with Industry Tools
+* **Ingest & Profile**: Multi-format data loading and deterministic 100-point data quality diagnostics.
+* **Clean & Transform**: Missing value imputation, deduplication, and automated feature encoding & scaling.
+* **AutoML Engine**: Concurrent model training across classification and regression benchmarks with automated hyperparameter selection.
+* **Unsupervised Clustering**: High-dimensional clustering with 2D/3D PCA projection and silhouette scoring.
+* **Model Explainability**: SHAP and permutation importance analysis for model transparency.
+* **Prediction Playground**: Interactive real-time parameter tweaking and model inference.
+* **Multi-Format Export**: Production-ready model serializations (Pickle, Joblib, ONNX, TensorFlow, PyTorch).
+* **Enterprise Design System**: Darkmatter Remix shadcn/ui aesthetic with local offline **Geist Sans** and **Geist Mono** typography.
 
-| Feature / Capability                  | **MLForge (Your Platform)** | Google AutoML | H2O.ai | DataRobot | KNIME / RapidMiner |
-|-------------------------------------|----------------------------------|---------------|--------|-----------|--------------------|
-| Data Upload                         | ✅ Multi-format                  | ⚠️ Limited    | ✅     | ✅        | ✅                 |
-| Data Cleaning                       | ✅ Manual + AI                   | ❌            | ⚠️     | ⚠️        | ⚠️                |
-| Preprocessing Control               | ✅ Full Control                  | ❌            | ⚠️     | ⚠️        | ✅                 |
-| AI Suggestions                      | ✅ Strong (USP)                  | ❌            | ⚠️     | ⚠️        | ❌                |
-| Model Selection                     | ✅                              | ✅            | ✅     | ✅        | ✅                 |
-| AutoML                              | ⚠️ Basic                        | ✅ Advanced   | ✅     | ✅        | ⚠️                |
-| Clustering + Visualization          | ✅ Integrated                   | ❌            | ⚠️     | ⚠️        | ✅                 |
-| Graph Customization                 | ✅ Advanced                     | ❌            | ❌     | ❌        | ✅                 |
-| Report Export                       | ✅ Excel + PDF + Word           | ❌            | ❌     | ⚠️        | ❌                |
-| UI Simplicity                       | ✅ Very Simple                  | ❌            | ❌     | ❌        | ❌                |
-| Beginner Friendly                   | ✅ High                         | ❌            | ❌     | ❌        | ⚠️                |
-| Deployment Ready                    | ❌                              | ✅            | ✅     | ✅        | ⚠️                |
-| Real-time Prediction API            | ❌                              | ✅            | ✅     | ✅        | ❌                |
-| Enterprise Scalability              | ❌                              | ✅            | ✅     | ✅        | ⚠️                |
 ---
 
-# 🧠 How It Works (Pipeline)
+## 🚀 Key Capabilities
+
+### 1. Data Ingestion & Diagnostic Health Audit
+- **Multi-Format Ingestion**: Load datasets seamlessly from CSV, Excel (`.xlsx`, `.xls`), JSON, XML, YAML, and SQLite (`.db`, `.sqlite3`).
+- **Standard Benchmarks**: Instant 1-click loading of standard ML benchmarks (Iris, Wine, California Housing, Titanic, etc.).
+- **Diagnostic Health Audit**: Deterministic 100-point ML Readiness Score evaluating missingness, outlier density, high-cardinality flags, class imbalance, and data leakage risks.
+
+### 2. Intelligent Data Preparation
+- **Missing Value Resolution**: Statistical imputation (Mean, Median, Mode, Constant), forward/backward propagation, and AI-recommended strategies.
+- **Duplicate Records Studio**: Exact row matching and column-subset deduplication with interactive before/after impact previews.
+- **Smart Preprocessing**: Categorical encoding (One-Hot, Ordinal, Label) and numeric scaling (StandardScaler, MinMaxScaler, RobustScaler) without target leakage.
+
+### 3. Automated Model Training (AutoML)
+- **Algorithm Suite**:
+  - *Classification*: Logistic Regression, Random Forest, Decision Tree, Support Vector Classifier (SVC), K-Nearest Neighbors (KNN), Naive Bayes.
+  - *Regression*: Linear Regression, Ridge, Lasso, ElasticNet, Random Forest Regressor, Gradient Boosting, Support Vector Regressor (SVR).
+- **Leakage-Safe Validation**: Automated Train/Test splitting with optional stratified cross-validation.
+- **Leaderboard Evaluation**: Side-by-side comparison with comprehensive metrics (Accuracy, F1-Score, Precision, Recall, ROC-AUC, R², MAE, RMSE, MAPE).
+
+### 4. Interactive Clustering & Unsupervised Discovery
+- **Clustering Algorithms**: K-Means with automatic elbow detection, DBSCAN with adaptive epsilon estimation, and Agglomerative Hierarchical Clustering.
+- **Dimensionality Reduction**: Principal Component Analysis (PCA) projection for 2D/3D cluster boundary visualizations.
+- **Cluster Diagnostics**: Silhouette coefficients, Davies-Bouldin indices, and cluster population breakdowns.
+
+### 5. Model Explainability & Diagnostics
+- **Permutation Importance**: Quantitative feature impact analysis on validation datasets.
+- **SHAP Summary Visualizations**: Directional feature attribution plots showing positive/negative influence on predictions.
+- **Decision Boundary Exploration**: Intuitive visual breakdown of model decisions.
+
+### 6. Interactive Prediction Playground
+- **Real-Time Inference**: Interactive form controls dynamically generated from dataset feature schemas.
+- **Live Scoring**: Instant predictions with confidence probabilities and class distributions.
+- **Sensitivity Testing**: Tweak individual numerical parameters to observe prediction boundaries in real time.
+
+### 7. Multi-Format Model & Report Exporters
+- **Production Serializations**: Export models directly to `.pkl`, `.joblib`, `.onnx` (cross-platform runtime), TensorFlow `.zip`, or PyTorch `.pt`.
+- **Cleaned Data Export**: Export preprocessed datasets in CSV, Excel, JSON, XML, YAML, or SQLite.
+- **Executive Audit Reports**: Generate exportable summaries of data quality, model performance, and pipeline configurations.
+
+---
+
+## 🎨 Design System & Typography
+
+MLForge features a custom enterprise dark-theme design system (**Darkmatter Remix**):
+
+* **Color Palette**:
+  - Background: `#121113`
+  - Cards & Surfaces: `#121212` / `#181719`
+  - Primary Accent: `#e78a53` (Warm Copper)
+  - Secondary Accent: `#5f8787` (Slate Teal)
+  - Borders & Inputs: `#222222`
+* **Local Offline Typography**:
+  - **Geist Sans** (400, 500, 600, 700): Headings, navigation, forms, buttons, cards, and UI copy.
+  - **Geist Mono** (400, 500, 600): Code blocks, technical metrics, telemetry, and dataset statistics.
+  - *100% Offline*: Embedded directly via local WOFF2 `@font-face` definitions without external CDNs or Google Fonts.
+* **Startup Splash Screen**:
+  - GPU-accelerated isometric 3D ribbon brand animation and progress indicator.
+  - Session-state guarded: triggers once on startup and smoothly reveals the workspace.
+
+---
+
+## 🧠 Pipeline Architecture
+
+```mermaid
+flowchart LR
+    A[Data Ingestion\nCSV, XLSX, SQLite, etc.] --> B[Diagnostic Audit\n100-pt Health Score]
+    B --> C[Data Cleaning\nMissing & Duplicates]
+    C --> D[Smart Preprocessing\nEncoding & Scaling]
+    D --> E[AutoML Training\nClassification & Regression]
+    D --> F[Cluster Visualizer\nK-Means, DBSCAN, PCA]
+    E --> G[Explainability\nSHAP & Feature Importance]
+    E --> H[Prediction Playground\nLive Inference]
+    E --> I[Model Exporters\nONNX, Torch, Joblib, PKL]
+```
+
+---
+
+## 📂 Repository Structure
 
 ```
-Upload → Profiling → Cleaning → Preprocessing → Training → Clustering → Export
-```
-
----
-
-# 📂 Project Structure
-
-```
-project/
-
+MLForge/
+├── .devcontainer/                  # Dev container configuration
+├── .streamlit/
+│   └── config.toml                 # Streamlit dark theme & server configuration
+├── assets/
+│   ├── branding/                   # Official brand marks, icons, and favicons
+│   │   ├── logo/                   # SVG & PNG logos (primary, light, dark, transparent)
+│   │   ├── icon/                   # App icons and stroke symbols
+│   │   ├── favicon/                # Multi-resolution favicons and favicon.ico
+│   │   └── BRAND_GUIDELINES.md     # Brand design specifications
+│   └── fonts/                      # Local Geist Sans & Geist Mono WOFF2 webfonts
+│       ├── Geist-*.woff2           # Geist Sans (Regular, Medium, SemiBold, Bold)
+│       └── GeistMono-*.woff2       # Geist Mono (Regular, Medium, SemiBold, Bold)
 ├── modules/
-│   ├── model_export/
+│   ├── model_export/               # Serializers for ONNX, Torch, TF, Joblib, Pickle
 │   │   ├── export_manager.py
 │   │   ├── joblib_exporter.py
-│   │   ├── pickle_exporter.py
 │   │   ├── onnx_exporter.py
+│   │   ├── pickle_exporter.py
 │   │   ├── tensorflow_exporter.py
-│   │   ├── torch_exporter.py
-│   │
-│   ├── ai_recommender.py
-│   ├── automl.py
-│   ├── clustering.py
-│   ├── duplicate_handler.py
-│   ├── evaluation.py
-│   ├── exporter.py
-│   ├── file_loader.py
-│   ├── missing_handler.py
-│   ├── profiling.py
-│
+│   │   └── torch_exporter.py
+│   ├── ai_recommender.py           # Heuristic suggestions for cleaning & models
+│   ├── automl.py                   # Model training, cross-validation & selection
+│   ├── clustering.py               # K-Means, DBSCAN, Agglomerative & PCA
+│   ├── data_audit.py               # 100-point diagnostic data readiness scoring
+│   ├── duplicate_handler.py        # Duplicate detection & safe removal
+│   ├── evaluation.py               # Metric calculation & confusion matrices
+│   ├── explainability.py           # Permutation importance & SHAP summaries
+│   ├── exporter.py                 # Multi-format tabular data exporter
+│   ├── file_loader.py              # Universal file parser & benchmark loader
+│   ├── fonts.py                    # Local @font-face base64 offline font engine
+│   ├── missing_handler.py          # Missing value strategies & imputation
+│   ├── prediction_playground.py    # Real-time model inference playground
+│   ├── profiling.py                # Statistical column profiling
+│   ├── splash_screen.py            # Startup splash screen & animation engine
+│   └── ui_theme.py                 # Darkmatter Remix design tokens & CSS engine
+├── scripts/
+│   ├── generate_brand_assets.py    # Automation for brand rendering
+│   └── test_ribbon_svg.py          # SVG verification utility
+├── tests/                          # Pytest test suite (94+ passing unit tests)
+│   ├── test_advanced_automl.py
+│   ├── test_brand_assets.py
+│   ├── test_data_audit.py
+│   ├── test_explainability_and_playground.py
+│   ├── test_leakage_and_cv.py
+│   ├── test_pipeline_regression.py
+│   ├── test_splash_screen.py
+│   ├── test_typography.py
+│   └── test_ui_ux_transformation.py
 ├── utils/
-│   └── helpers.py
-│
-├── reports/
-├── app.py
-├── requirements.txt
+│   ├── helpers.py                  # Helper routines
+│   └── icons.py                    # Icon definitions
+├── app.py                          # Streamlit application entry point
+├── requirements.txt                # Production dependencies
+├── LICENSE                         # MIT License
+└── README.md                       # Documentation
 ```
 
 ---
 
-# 🔍 File Explanations (Deep)
+## ⚡ Quickstart
 
-## 📂 app.py  
-Main Streamlit application  
-- UI + Dashboard  
-- Full pipeline control  
-- Handles user interaction  
-- Runs complete ML workflow  
+### Prerequisites
+- Python 3.10, 3.11, 3.12, or 3.13
+- Git
 
-👉 Example: :contentReference[oaicite:0]{index=0}  
+### 1. Clone the Repository
+```bash
+git clone https://github.com/AlokRana01/MLForge-.git
+cd MLForge-
+```
 
----
+### 2. Set Up a Virtual Environment
+```bash
+# macOS/Linux
+python3 -m venv venv
+source venv/bin/activate
 
-## 📂 file_loader.py  
-Handles multi-format file loading  
-- CSV, Excel, JSON, XML, YAML, SQLite  
-- Auto-detects format  
-- Converts into Pandas DataFrame  
+# Windows (PowerShell)
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+```
 
-👉 :contentReference[oaicite:1]{index=1}  
-
----
-
-## 📂 profiling.py  
-Performs data analysis  
-- Column summary  
-- Missing values  
-- Numeric & categorical stats  
-
-👉 :contentReference[oaicite:2]{index=2}  
-
----
-
-## 📂 missing_handler.py  
-Handles missing data intelligently  
-- Mean / Median / Mode  
-- Forward / Backward fill  
-- Custom values  
-
-👉 :contentReference[oaicite:3]{index=3}  
-
----
-
-## 📂 duplicate_handler.py  
-Duplicate detection & removal  
-- Full row detection  
-- Column-based duplicates  
-- Safe removal  
-
-👉 :contentReference[oaicite:4]{index=4}  
-
----
-
-## 📂 automl.py  
-Core ML engine  
-- Detects problem type  
-- Splits dataset  
-- Trains multiple models  
-- Selects best model  
-
-Models included:
-- Logistic Regression  
-- Random Forest  
-- Decision Tree  
-- SVM  
-- KNN  
-- Naive Bayes  
-
-👉 :contentReference[oaicite:5]{index=5}  
-
----
-
-## 📂 evaluation.py  
-Evaluates model performance  
-
-### Classification:
-- Accuracy  
-- Precision  
-- Recall  
-- F1 Score  
-
-### Regression:
-- R² Score  
-- MAE  
-- RMSE  
-- MAPE  
-
-👉 :contentReference[oaicite:6]{index=6}  
-
----
-
-## 📂 clustering.py  
-Unsupervised learning module  
-
-Supports:
-- K-Means (auto cluster detection)
-- DBSCAN (auto eps detection)
-- Agglomerative clustering  
-
-Also includes:
-- PCA (dimensionality reduction)
-- Silhouette score evaluation  
-
-👉 :contentReference[oaicite:7]{index=7}  
-
----
-
-## 📂 ai_recommender.py  
-AI-based suggestions  
-
-- Missing value strategies  
-- Model recommendations  
-- Feature importance  
-- Clustering suggestions  
-
-👉 :contentReference[oaicite:8]{index=8}  
-
----
-
-## 📂 exporter.py  
-Export cleaned dataset  
-
-Formats:
-- CSV  
-- Excel  
-- JSON  
-- XML  
-- YAML  
-- SQLite  
-
-👉 :contentReference[oaicite:9]{index=9}  
-
----
-
-## 📂 model_export/  
-Advanced model export system  
-
-### Supported Formats:
-- Pickle  
-- Joblib  
-- ONNX  
-- TensorFlow  
-- PyTorch  
-
-### Central Manager:
-- export_manager.py handles all exports  
-
-👉 :contentReference[oaicite:10]{index=10}  
-
----
-
-## 📂 utils/helpers.py  
-Utility functions  
-
-- Column cleaning  
-- Encoding helpers  
-- Safe operations  
-- Memory optimization  
-
-👉 :contentReference[oaicite:11]{index=11}  
-
----
-
-# 🤖 AI Intelligence
-
-MLForge provides AI suggestions for:
-
-- Missing value handling  
-- Feature selection  
-- Model selection  
-- Clustering approach  
-
----
-
-# 📊 Clustering Features
-
-- Auto optimal cluster detection  
-- Elbow method  
-- Silhouette scoring  
-- 2D visualization (PCA)  
-
----
-
-# 💾 Model Export System
-
-Export trained models into:
-
-- `.pkl`
-- `.joblib`
-- `.onnx`
-- `.zip` (TensorFlow)
-- `.pt` (PyTorch)
-
----
-
-# ▶️ Run Project
-
+### 3. Install Dependencies
 ```bash
 pip install -r requirements.txt
+```
+
+### 4. Launch the Application
+```bash
 streamlit run app.py
 ```
 
----
-
-# 📊 Use Cases
-
-- Data Science Projects  
-- Machine Learning Automation  
-- Business Analytics  
-- Customer Segmentation  
-- Financial Analysis  
-- Research Work  
+The application will launch on `http://localhost:8501`.
 
 ---
 
-# 🚀 Future Enhancements
+## 🧪 Testing & Verification
 
-- Deep Learning models  
-- NLP integration  
-- Auto feature engineering  
-- Cloud deployment  
-- API support  
+MLForge includes a comprehensive test suite covering data auditing, model export, typography, brand assets, UI/UX transformations, and pipeline regressions:
+
+```bash
+# Run all tests
+python -m pytest
+
+# Run specific test suites
+python -m pytest tests/test_typography.py
+python -m pytest tests/test_splash_screen.py
+python -m pytest tests/test_ui_ux_transformation.py
+```
 
 ---
 
-# 👨‍💻 Author
+## 📜 License
 
-Daksh Vasani  
-Machine Learning Developer  
+This project is open-source and distributed under the [MIT License](LICENSE).
 
 ---
 
-# ⭐ Support
+## 👨‍💻 Author
 
-If you like this project, give it a ⭐ on GitHub!
+**Alok Rana**  
+* GitHub: [@AlokRana01](https://github.com/AlokRana01)  
+* Repository: [https://github.com/AlokRana01/MLForge-.git](https://github.com/AlokRana01/MLForge-.git)
 
 ---
 
 <p align="center">
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0f2027,100:2c5364&height=170&section=footer&text=Thanks%20for%20Visiting!&fontSize=28&fontColor=ffffff&animation=twinkling&fontAlignY=65"/>
+  <sub>Built with passion for high-density, professional machine learning workflows.</sub>
 </p>
