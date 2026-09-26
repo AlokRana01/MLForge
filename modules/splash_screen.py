@@ -10,6 +10,7 @@ Provides an enterprise SaaS desktop-grade startup splash experience:
 - 100% offline: zero external network dependencies, CDNs, or remote assets.
 """
 
+from pathlib import Path
 from typing import Optional
 import streamlit as st
 from modules.fonts import get_font_face_css
@@ -90,10 +91,10 @@ def render_splash_css(duration_sec: float = 4.0) -> str:
 /* Logo Entrance */
 .mlforge-splash-logo {{
     opacity: 0;
-    transform: scale(0.86);
-    filter: drop-shadow(0 0 20px rgba(231, 138, 83, 0.28));
-    animation: splashLogoEntrance 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
-    margin-bottom: 1.1rem;
+    transform: scale(0.90) translateY(-8px);
+    filter: drop-shadow(0 0 32px rgba(231, 138, 83, 0.32)) drop-shadow(0 0 12px rgba(251, 203, 151, 0.18));
+    animation: splashLogoEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
+    margin-bottom: 1.4rem;
 }}
 
 /* Brand Name — theme gradient: Peach → Copper → Deep Copper */
@@ -296,7 +297,11 @@ body:has(#mlforge-splash-wrapper) section.main {{
 
 def render_splash_html(duration_sec: float = 4.0) -> str:
     """Generates the semantic HTML markup for the startup splash screen."""
-    brand_logo_svg = get_brand_symbol_svg(size=76, theme="dark")
+    # Load the full primary SVG logo (symbol + gradient wordmark) from file
+    _svg_path = Path(__file__).parent.parent / "assets" / "branding" / "logo" / "mlforge-logo-primary.svg"
+    _logo_svg = _svg_path.read_text(encoding="utf-8") if _svg_path.exists() else get_brand_symbol_svg(size=120, theme="dark")
+    # Scale to large display size for splash
+    _logo_svg = _logo_svg.replace('width="360" height="100"', 'width="380" height="106"')
     css = render_splash_css(duration_sec)
 
     raw_html = f"""
@@ -305,9 +310,8 @@ def render_splash_html(duration_sec: float = 4.0) -> str:
 <div id="mlforge-splash-wrapper" role="dialog" aria-label="MLForge Startup Screen" aria-modal="true">
 <div class="mlforge-splash-content">
 <div class="mlforge-splash-logo">
-{brand_logo_svg}
+{_logo_svg}
 </div>
-<h1 class="mlforge-splash-title">ML<span>Forge</span></h1>
 <div class="mlforge-splash-tagline">AutoML Workspace</div>
 <div class="mlforge-splash-progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100">
 <div class="mlforge-splash-progress-bar"></div>
