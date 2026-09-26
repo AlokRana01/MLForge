@@ -59,22 +59,29 @@ def render_splash_css(duration_sec: float = 4.0) -> str:
     overflow: hidden;
 }}
 
-/* Atmospheric ambient backdrop radial glow */
+/* ── Dusk Cedar › Sappan Rose › Coral Glaze › Washed Stone gradient backdrop ── */
 #mlforge-splash-wrapper::before {{
     content: '';
     position: absolute;
-    width: 700px;
-    height: 500px;
-    border-radius: 50%;
-    background: radial-gradient(
-        ellipse at center,
-        rgba(231, 138, 83, 0.08) 0%,
-        rgba(95, 135, 135, 0.05) 45%,
-        transparent 70%
-    );
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    inset: -44px;
+    background: linear-gradient(135deg, #9E4E24 12.5%, #E78A53 37.5%, #FBCB97 62.5%, #121113 87.5%);
+    background: linear-gradient(135deg in oklab, #9E4E24 12.5%, #E78A53 37.5%, #FBCB97 62.5%, #121113 87.5%);
+    filter: blur(22px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.72;
+}}
+
+/* ── Film grain noise overlay ── */
+#mlforge-splash-wrapper::after {{
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAQAElEQVR4ATTdBXQmx7EF4KoJbVhhh+Wwec32mmRme81sy8zMzMzMzMzMzMzMzMzu9Nc6887Rk/TPTHfVrXtvVY82SbfffvuVa6+9tlxwwQXl4IMPLiuuuGI577zzyjnnnFOuueaactlll5VJJpmk3HzzzWWfffZp36ebbrqyxhprlD333LMsueSSZcstt9yzrb1emmaasscYae+65Z1liySXLqquuWtZaa61y9tlnl2OOOaYsv/zyZZVVVikXXXRROe+888rhhx9ell122bLeeuuVc889t5xzzjlljz32KFtssUU55phjyvHHH19OO+20cs4555STTjqprLbaauWMM84oJ554Yjn33HPL2Wefveyyy5abbropF154YbnoootKeHl5efXqVa5evXqbV69etXmVl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5dN3rx58+bNmzdv3rx58+bNmzdv3rx58+bNmzdv3rx58+bNmzdv3rx58+bNmzdv3rx58+bNmzdv3rx58+bNmzdv3rx58+bNmzdv3rx58+bNmzdv3rx58+bNmzdv3rx58+bNmzdv3rx58+bNmzdv3rx58+bNmzdv3rx58+bNmzdv3rx58+bNmzdv3rx58+bNmzdv3rx58+bNmzdv3rx58+bNmzdv3rx58+bNmzdv3rx58+bNmzdv3rx58+bNmzdv3rx58+bNmzdv3rx58+bNmzdv3rx58+bNmzdv3rx58+bNmzdv3rx58+bNmzdv3rx58+bNmzdv3rx58+bNmzdv3rx58+bNmzdv3rx58+bNmzdv3rx58+bNmzdv3rx58+bNmzdv3rx58+bNmzdv3rx5) repeat;
+    background-size: 256px 256px;
+    image-rendering: pixelated;
+    mix-blend-mode: overlay;
+    opacity: 0.095;
     pointer-events: none;
     z-index: 0;
 }}
