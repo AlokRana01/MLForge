@@ -92,9 +92,69 @@ def get_symbol_svg_paths_monochrome(fill_color):
 
 
 def generate_svg_logos():
-    # Gradients for Darkmatter Remix theme
-    defs_gradients = f"""
-  <defs>
+    # Exact sidebar ribbon symbol paths (viewBox 0 0 100 100)
+    exact_sidebar_symbol = f"""
+    <!-- Left Top Lid -->
+    <path d="M 14,32 L 32,20 L 44,28 L 26,40 Z" fill="{COLOR_ACCENT_PEACH}" />
+    <!-- Left Vertical Face -->
+    <path d="M 14,32 L 26,40 L 26,76 L 14,68 Z" fill="{COLOR_PRIMARY}" />
+    <!-- Center Descending Ribbon Fold -->
+    <path d="M 26,40 L 44,28 L 62,44 L 44,56 Z" fill="{COLOR_SECONDARY}" />
+    <!-- Center Ascending Ribbon Fold -->
+    <path d="M 26,76 L 44,88 L 60,74 L 42,62 Z" fill="{COLOR_SECONDARY_DARK}" />
+    <!-- Right Arch & Pillar -->
+    <path d="M 62,44 L 78,32 L 78,74 L 66,74 L 66,54 L 44,56 Z" fill="{COLOR_PRIMARY_HOVER}" />
+    <!-- Bottom Cap -->
+    <path d="M 14,68 L 26,76 L 36,84 L 24,76 Z" fill="{COLOR_TERRACOTTA}" />
+    <!-- Floating Data Pixels -->
+    <rect x="56" y="8" width="6.5" height="6.5" rx="1.2" fill="{COLOR_ACCENT_PEACH}" />
+    <rect x="66" y="8" width="6.5" height="6.5" rx="1.2" fill="{COLOR_PRIMARY}" />
+    <rect x="50" y="18" width="6.5" height="6.5" rx="1.2" fill="{COLOR_SECONDARY}" />
+    <rect x="60" y="18" width="6.5" height="6.5" rx="1.2" fill="{COLOR_PRIMARY_HOVER}" />
+    <rect x="70" y="18" width="6.5" height="6.5" rx="1.2" fill="{COLOR_ACCENT_PEACH}" />"""
+
+    # 1. Primary Logo (Matches application sidebar logo lockup exactly)
+    svg_primary = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 100" width="360" height="100" fill="none">
+  <style>
+    .brand-title {{
+      font-family: 'Geist Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-weight: 700;
+      font-size: 48px;
+      letter-spacing: -0.03em;
+      fill: {COLOR_TEXT_WHITE};
+    }}
+    @media (prefers-color-scheme: light) {{
+      .brand-title {{
+        fill: {COLOR_TEXT_DARK};
+      }}
+    }}
+  </style>
+  <g transform="translate(6, 0)">{exact_sidebar_symbol}
+  </g>
+  <text x="110" y="66" class="brand-title">MLForge</text>
+</svg>"""
+    (LOGO_DIR / "mlforge-logo-primary.svg").write_text(svg_primary, encoding="utf-8")
+    (LOGO_DIR / "mlforge-logo-transparent.svg").write_text(svg_primary, encoding="utf-8")
+
+    # 2. Dark Logo (For Light Backgrounds: Dark Surface Text)
+    svg_dark = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 100" width="360" height="100" fill="none">
+  <g transform="translate(6, 0)">{exact_sidebar_symbol}
+  </g>
+  <text x="110" y="66" font-family="'Geist Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="700" font-size="48" fill="{COLOR_TEXT_DARK}" letter-spacing="-0.03em">MLForge</text>
+</svg>"""
+    (LOGO_DIR / "mlforge-logo-dark.svg").write_text(svg_dark, encoding="utf-8")
+
+    # 3. Light Logo (White surface card with themed logo inside)
+    svg_light = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 100" width="360" height="100" fill="none">
+  <rect width="360" height="100" fill="{COLOR_BG_LIGHT}" rx="8" />
+  <g transform="translate(6, 0)">{exact_sidebar_symbol}
+  </g>
+  <text x="110" y="66" font-family="'Geist Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="700" font-size="48" fill="{COLOR_TEXT_DARK}" letter-spacing="-0.03em">MLForge</text>
+</svg>"""
+    (LOGO_DIR / "mlforge-logo-light.svg").write_text(svg_light, encoding="utf-8")
+
+    # Gradient defs used by tagline logo
+    defs_gradients = f"""  <defs>
     <linearGradient id="gradPillarLeft" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="{COLOR_ACCENT_PEACH}" />
       <stop offset="100%" stop-color="{COLOR_PRIMARY}" />
@@ -108,43 +168,10 @@ def generate_svg_logos():
       <stop offset="100%" stop-color="{COLOR_PRIMARY_HOVER}" />
     </linearGradient>
     <linearGradient id="gradWordForge" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="{COLOR_SECONDARY}" />
-      <stop offset="55%" stop-color="{COLOR_PRIMARY}" />
+      <stop offset="0%" stop-color="{COLOR_PRIMARY}" />
       <stop offset="100%" stop-color="{COLOR_ACCENT_PEACH}" />
     </linearGradient>
   </defs>"""
-
-    # 1. Primary Logo (Dark Theme: Warm Copper & Slate Teal, Transparent Background)
-    svg_primary = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 100" width="420" height="100">
-{defs_gradients}
-  <g transform="translate(10, 0)">
-    {get_symbol_svg_paths("url(#gradPillarLeft)", "url(#gradCrucible)", "url(#gradPillarRight)")}
-  </g>
-  <text x="125" y="66" font-family="'Geist Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="700" font-size="44" fill="{COLOR_TEXT_WHITE}" letter-spacing="-0.03em">ML<tspan fill="url(#gradWordForge)">Forge</tspan></text>
-</svg>"""
-    (LOGO_DIR / "mlforge-logo-primary.svg").write_text(svg_primary, encoding="utf-8")
-    (LOGO_DIR / "mlforge-logo-transparent.svg").write_text(svg_primary, encoding="utf-8")
-
-    # 2. Dark Logo (For Light Backgrounds: Deep Copper & Dark Surface Text)
-    svg_dark = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 100" width="420" height="100">
-{defs_gradients}
-  <g transform="translate(10, 0)">
-    {get_symbol_svg_paths(COLOR_PRIMARY_HOVER, COLOR_SECONDARY_DARK, COLOR_PRIMARY_HOVER, color_top=COLOR_PRIMARY, color_bottom="#7c3714")}
-  </g>
-  <text x="125" y="66" font-family="'Geist Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="700" font-size="44" fill="{COLOR_TEXT_DARK}" letter-spacing="-0.03em">ML<tspan fill="{COLOR_PRIMARY}">Forge</tspan></text>
-</svg>"""
-    (LOGO_DIR / "mlforge-logo-dark.svg").write_text(svg_dark, encoding="utf-8")
-
-    # 3. Light Logo (White surface card with themed logo inside)
-    svg_light = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 100" width="420" height="100">
-{defs_gradients}
-  <rect width="420" height="100" fill="{COLOR_BG_LIGHT}" rx="8" />
-  <g transform="translate(10, 0)">
-    {get_symbol_svg_paths(COLOR_PRIMARY_HOVER, COLOR_SECONDARY_DARK, COLOR_PRIMARY_HOVER, color_top=COLOR_PRIMARY, color_bottom="#7c3714")}
-  </g>
-  <text x="125" y="66" font-family="'Geist Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="700" font-size="44" fill="{COLOR_TEXT_DARK}" letter-spacing="-0.03em">ML<tspan fill="{COLOR_PRIMARY}">Forge</tspan></text>
-</svg>"""
-    (LOGO_DIR / "mlforge-logo-light.svg").write_text(svg_light, encoding="utf-8")
 
     # 4. Logo with Tagline
     svg_tagline = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 120" width="520" height="120">
