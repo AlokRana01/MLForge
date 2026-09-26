@@ -4,6 +4,7 @@ import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 import sys, os, io, time, traceback
+from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(__file__))
 
@@ -105,10 +106,15 @@ def detect_problem_type(df, target_col):
 # SIDEBAR
 
 with st.sidebar:
-    brand_icon = get_brand_symbol_svg(34, "dark")
-    st.markdown(f"""<div class="sidebar-brand-header" style="padding:1.45rem 0.2rem 0.65rem;border-bottom:1px solid var(--mf-border);margin-bottom:0.6rem;display:flex;align-items:center;gap:0.65rem">
-        {brand_icon}
-        <span class="sidebar-brand-text" style="font-family:'Geist Sans',sans-serif;font-size:1.45rem;font-weight:700;letter-spacing:-0.03em;color:var(--mf-text-primary);line-height:1">MLForge</span>
+    # Read the primary SVG logo and embed it inline for full gradient support
+    _logo_path = Path(__file__).parent / "assets" / "branding" / "logo" / "mlforge-logo-primary.svg"
+    _logo_svg = _logo_path.read_text(encoding="utf-8") if _logo_path.exists() else ""
+    # Scale the SVG to fit sidebar width (viewBox stays 360x100, we set width/height)
+    _logo_svg = _logo_svg.replace(
+        'width="360" height="100"', 'width="200" height="56"'
+    )
+    st.markdown(f"""<div class="sidebar-brand-header" style="padding:1.1rem 0.4rem 0.75rem;border-bottom:1px solid var(--mf-border);margin-bottom:0.6rem;display:flex;align-items:center;">
+        {_logo_svg}
     </div>""", unsafe_allow_html=True)
 
     # Step → (label, icon_slug)
