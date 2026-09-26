@@ -113,23 +113,25 @@ def generate_svg_logos():
     <rect x="60" y="18" width="6.5" height="6.5" rx="1.2" fill="{COLOR_PRIMARY_HOVER}" />
     <rect x="70" y="18" width="6.5" height="6.5" rx="1.2" fill="{COLOR_ACCENT_PEACH}" />"""
 
-    # 1. Primary Logo (Matches application sidebar logo lockup exactly)
     svg_primary = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 100" width="360" height="100" fill="none">
+  <defs>
+    <linearGradient id="wordmarkGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="{COLOR_ACCENT_PEACH}" />
+      <stop offset="45%"  stop-color="{COLOR_PRIMARY}" />
+      <stop offset="100%" stop-color="{COLOR_PRIMARY_HOVER}" />
+    </linearGradient>
+  </defs>
   <style>
     .brand-title {{
       font-family: 'Geist Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       font-weight: 700;
       font-size: 48px;
       letter-spacing: -0.03em;
-      fill: {COLOR_TEXT_WHITE};
-    }}
-    .brand-forge {{
-      fill: {COLOR_PRIMARY};
     }}
   </style>
   <g transform="translate(6, 0)">{exact_sidebar_symbol}
   </g>
-  <text x="110" y="66" class="brand-title">ML<tspan class="brand-forge">Forge</tspan></text>
+  <text x="110" y="66" class="brand-title" fill="url(#wordmarkGrad)">MLForge</text>
 </svg>"""
     (LOGO_DIR / "mlforge-logo-primary.svg").write_text(svg_primary, encoding="utf-8")
     (LOGO_DIR / "mlforge-logo-transparent.svg").write_text(svg_primary, encoding="utf-8")

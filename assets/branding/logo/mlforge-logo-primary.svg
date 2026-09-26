@@ -1,14 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 100" width="360" height="100" fill="none">
+  <defs>
+    <!-- Theme gradient: Luminous Peach → Warm Copper → Deep Copper -->
+    <linearGradient id="wordmarkGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#fbcb97" />
+      <stop offset="45%"  stop-color="#e78a53" />
+      <stop offset="100%" stop-color="#d87943" />
+    </linearGradient>
+  </defs>
   <style>
     .brand-title {
       font-family: 'Geist Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       font-weight: 700;
       font-size: 48px;
       letter-spacing: -0.03em;
-      fill: #f3f4f6;
-    }
-    .brand-forge {
-      fill: #e78a53;
     }
   </style>
   <g transform="translate(6, 0)">
@@ -25,11 +29,11 @@
     <!-- Bottom Cap -->
     <path d="M 14,68 L 26,76 L 36,84 L 24,76 Z" fill="#9e4e24" />
     <!-- Floating Data Pixels -->
-    <rect x="56" y="8" width="6.5" height="6.5" rx="1.2" fill="#fbcb97" />
-    <rect x="66" y="8" width="6.5" height="6.5" rx="1.2" fill="#e78a53" />
+    <rect x="56" y="8"  width="6.5" height="6.5" rx="1.2" fill="#fbcb97" />
+    <rect x="66" y="8"  width="6.5" height="6.5" rx="1.2" fill="#e78a53" />
     <rect x="50" y="18" width="6.5" height="6.5" rx="1.2" fill="#5f8787" />
     <rect x="60" y="18" width="6.5" height="6.5" rx="1.2" fill="#d87943" />
     <rect x="70" y="18" width="6.5" height="6.5" rx="1.2" fill="#fbcb97" />
   </g>
-  <text x="110" y="66" class="brand-title">ML<tspan class="brand-forge">Forge</tspan></text>
+  <text x="110" y="66" class="brand-title" fill="url(#wordmarkGrad)">MLForge</text>
 </svg>
