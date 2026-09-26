@@ -96,22 +96,23 @@ def render_splash_css(duration_sec: float = 4.0) -> str:
     margin-bottom: 1.1rem;
 }}
 
-/* Brand Name */
+/* Brand Name — theme gradient: Peach → Copper → Deep Copper */
 .mlforge-splash-title {{
     font-family: 'Geist Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: 2.35rem;
     font-weight: 700;
     letter-spacing: -0.035em;
-    color: #f3f4f6 !important;
     line-height: 1;
     margin: 0 0 0.45rem 0;
     opacity: 0;
     transform: translateY(12px);
     animation: splashTextEntrance 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.20s both;
-}}
-
-.mlforge-splash-title span {{
-    color: #e78a53 !important;
+    background: linear-gradient(90deg, #fbcb97 0%, #e78a53 50%, #d87943 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
+    filter: drop-shadow(0 0 18px rgba(231, 138, 83, 0.35));
 }}
 
 /* Tagline */
