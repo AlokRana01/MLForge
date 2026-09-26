@@ -22,11 +22,10 @@
 
 The official **MLForge** mark is an isometric **3D Hexagonal Ribbon "M"** accompanied by floating data transformation pixels:
 
-1. **Left Ingestion Pillar** (`#fbcb97` → `#e78a53` with `#fbcb97` top isometric lid): Represents raw data ingestion and exploratory data analysis. The top facet reflects incoming computational flux.
-2. **Center Interlocking Ribbon Folds** (`#5f8787` → `#527575` descending and ascending): Represents the core automated feature engineering and model training crucible, interweaving inputs into unified architectures.
-3. **Right Deployment Arch & Pillar** (`#e78a53` → `#d87943`): Represents trained model deployment, explainability (SHAP), and real-time inference playgrounds.
-4. **Bottom Terracotta Anchor** (`#9e4e24`): Provides foundational structural weight to the isometric ribbon.
-5. **Floating Transformation Pixels** (`#fbcb97`, `#e78a53`, `#5f8787`): Five isometric digital sparks positioned above the central crucible valley, representing feature transformations and model weights being forged in real-time.
+1. **Left Ingestion Pillar** (`#00e5ff` → `#0066ff` with `#38bdf8` top isometric lid): Represents raw data ingestion and exploratory data analysis. The top facet reflects incoming computational flux.
+2. **Center Interlocking Ribbon Folds** (`#0072ff` → `#4f46e5` descending; `#2563eb` → `#7c3aed` ascending): Represents the core automated feature engineering and model training crucible, interweaving inputs into unified architectures.
+3. **Right Deployment Arch & Pillar** (`#7c3aed` → `#a855f7` → `#c084fc`): Represents trained model deployment, explainability (SHAP), and real-time inference playgrounds.
+4. **Floating Transformation Pixels** (`#00e5ff`, `#38bdf8`, `#a855f7`, `#c084fc`): Five isometric digital sparks positioned above the central crucible valley, representing feature transformations and model weights being forged in real-time.
 
 ```
        3D Hexagonal Ribbon M & Floating Pixels (100×100 Grid)
@@ -41,7 +40,7 @@ The official **MLForge** mark is an isometric **3D Hexagonal Ribbon "M"** accomp
         │ Pillar │   /        /    │
         │        │  44,56    /     │  Right
         14,68    │          66,54  │  Pillar
-         \       26,76        │    │  (Copper)
+         \       26,76        │    │  (Violet)
           \       \   42,62   │    │
            36,84 ──44,88 ─── 60,74 78,74
 ```
@@ -52,47 +51,56 @@ The official **MLForge** mark is an isometric **3D Hexagonal Ribbon "M"** accomp
 
 The wordmark is strictly formatted as **MLForge** (one word, capital "M", "L", and "F").
 
-### Primary Typeface: Geist Sans
+### Primary Typeface: Inter / Segoe UI / Plus Jakarta Sans
 - **Weights**:
-  - Wordmark: **Bold (700)**
-  - Tagline: **SemiBold (600)**
+  - Wordmark: **Bold / ExtraBold (700 / 800)**
+  - Tagline: **Medium (500)**
   - Letter Spacing: `-0.03em` for wordmark; `+0.14em` for tagline.
 
 ### Wordmark Construction
 ```
 [Symbol]   MLForge
-           ├── "ML" (Crisp Solid White #f3f4f6)
-           └── "Forge" (Vibrant Linear Gradient: Slate Teal #5f8787 → Warm Copper #e78a53 → Luminous Peach #fbcb97)
+           ├── "ML" (Crisp Solid White #ffffff)
+           └── "Forge" (Vibrant Linear Gradient: Electric Cyan #38bdf8 → Violet #c084fc)
 ```
 
 ### Official Tagline Lockup
 ```
 Build. Train. Evaluate. Deploy.
 ```
-Positioned below the wordmark in clean muted slate (`#888888`), with uniform spacing celebrating the 4-phase ML lifecycle.
+Positioned below the wordmark in clean light slate (`#cbd5e1`), with uniform spacing and terminal periods celebrating the 4-phase ML lifecycle.
 
 ---
 
 ## 4. Color System
 
-The palette features Darkmatter Remix warm copper, deep slate teal, and luminous peach accents:
+The palette features high-energy electric cyan, deep cobalt blue, and vibrant ultraviolet purple:
 
 | Swatch | Color Name | HEX | RGB | Use Case |
 |---|---|---|---|---|
-| ![#e78a53](https://via.placeholder.com/15/e78a53/000000?text=+) | **Warm Copper** | `#e78a53` | `rgb(231, 138, 83)` | Signature brand primary accent, button highlight, left pillar |
-| ![#d87943](https://via.placeholder.com/15/d87943/000000?text=+) | **Rich Copper** | `#d87943` | `rgb(216, 121, 67)` | Primary hover state, right pillar |
-| ![#5f8787](https://via.placeholder.com/15/5f8787/000000?text=+) | **Slate Teal** | `#5f8787` | `rgb(95, 135, 135)` | Secondary brand accent, center crucible ribbon |
-| ![#527575](https://via.placeholder.com/15/527575/000000?text=+) | **Deep Slate Teal** | `#527575` | `rgb(82, 117, 117)` | Ribbon ascending fold shadow |
-| ![#fbcb97](https://via.placeholder.com/15/fbcb97/000000?text=+) | **Luminous Peach** | `#fbcb97` | `rgb(251, 203, 151)` | Top isometric lid, sparks, wordmark gradient tip |
-| ![#9e4e24](https://via.placeholder.com/15/9e4e24/000000?text=+) | **Terracotta** | `#9e4e24` | `rgb(158, 78, 36)` | Ribbon bottom cap anchor |
+| ![#00e5ff](https://via.placeholder.com/15/00e5ff/000000?text=+) | **Electric Cyan** | `#00e5ff` | `rgb(0, 229, 255)` | Left pillar highlight, data pixel |
+| ![#38bdf8](https://via.placeholder.com/15/38bdf8/000000?text=+) | **Sky Blue** | `#38bdf8` | `rgb(56, 189, 248)` | Wordmark gradient start, top lid |
+| ![#0072ff](https://via.placeholder.com/15/0072ff/000000?text=+) | **Electric Blue** | `#0072ff` | `rgb(0, 114, 255)` | Center ribbon descending fold |
+| ![#7c3aed](https://via.placeholder.com/15/7c3aed/000000?text=+) | **Crucible Violet** | `#7c3aed` | `rgb(124, 58, 237)` | Right pillar arch base |
+| ![#a855f7](https://via.placeholder.com/15/a855f7/000000?text=+) | **Electric Purple** | `#a855f7` | `rgb(168, 85, 247)` | Wordmark gradient end, right wing |
+| ![#c084fc](https://via.placeholder.com/15/c084fc/000000?text=+) | **Neon Lilac** | `#c084fc` | `rgb(192, 132, 252)` | Right wing rim light, spark pixel |
+
+### Primary Palette
+| Swatch | Color Name | HEX | RGB | Use Case |
+|---|---|---|---|---|
+| ![#38bdf8](https://via.placeholder.com/15/38bdf8/000000?text=+) | **Electric Sky 400** | `#38bdf8` | `rgb(56, 189, 248)` | Primary brand accent, left pillar highlight, interactive focus |
+| ![#0284c7](https://via.placeholder.com/15/0284c7/000000?text=+) | **Deep Sky 600** | `#0284c7` | `rgb(2, 132, 199)` | Light-mode accent, button hover state |
+| ![#6366f1](https://via.placeholder.com/15/6366f1/000000?text=+) | **Crucible Indigo 500** | `#6366f1` | `rgb(99, 102, 241)` | Secondary symbol facet, telemetry accents |
+| ![#4338ca](https://via.placeholder.com/15/4338ca/000000?text=+) | **Dark Indigo 700** | `#4338ca` | `rgb(67, 56, 202)` | Right pillar depth shadow, gradient stops |
 
 ### Surface & Typography Palette
 | Swatch | Color Name | HEX | RGB | Use Case |
 |---|---|---|---|---|
-| ![#121113](https://via.placeholder.com/15/121113/000000?text=+) | **Darkmatter Canvas** | `#121113` | `rgb(18, 17, 19)` | Dark mode background, squircle icon base |
-| ![#121212](https://via.placeholder.com/15/121212/000000?text=+) | **Dark Surface** | `#121212` | `rgb(18, 18, 18)` | Cards, sidebar, modal containers |
-| ![#f3f4f6](https://via.placeholder.com/15/f3f4f6/000000?text=+) | **Crisp White** | `#f3f4f6` | `rgb(243, 244, 246)` | Primary text, wordmark "ML" |
-| ![#888888](https://via.placeholder.com/15/888888/000000?text=+) | **Muted Slate** | `#888888` | `rgb(136, 136, 136)` | Secondary taglines, captions, metadata |
+| ![#090d16](https://via.placeholder.com/15/090d16/000000?text=+) | **Dark Canvas 950** | `#090d16` | `rgb(9, 13, 22)` | Dark mode background, app background |
+| ![#111827](https://via.placeholder.com/15/111827/000000?text=+) | **Dark Surface 900** | `#111827` | `rgb(17, 24, 39)` | Cards, sidebar, modal containers |
+| ![#f8fafc](https://via.placeholder.com/15/f8fafc/000000?text=+) | **Slate White 50** | `#f8fafc` | `rgb(248, 250, 252)` | Dark-mode primary text, light canvas |
+| ![#0f172a](https://via.placeholder.com/15/0f172a/000000?text=+) | **Slate Dark 900** | `#0f172a` | `rgb(15, 23, 42)` | Light-mode primary text, squircle backgrounds |
+| ![#94a3b8](https://via.placeholder.com/15/94a3b8/000000?text=+) | **Muted Slate 400** | `#94a3b8` | `rgb(148, 163, 184)` | Secondary taglines, captions, metadata |
 
 ---
 

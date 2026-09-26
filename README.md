@@ -74,31 +74,23 @@
 
 ---
 
-## 🎨 Design System, Branding & Typography
+## 🎨 Design System & Typography
 
 MLForge features a custom enterprise dark-theme design system (**Darkmatter Remix**):
 
-### 🏷️ Brand Identity & Logo Suite
-* **Signature Mark**: Isometric 3D Hexagonal Ribbon "M" with floating real-time data transformation pixels.
-* **Palette Alignment**:
-  * **Primary (Warm Copper)**: `#e78a53` — wordmark gradient, primary action controls, left pillar face.
-  * **Secondary (Darkmatter Slate Teal)**: `#5f8787` / `#527575` — center crucible ribbon, technical telemetry.
-  * **Luminous Peach**: `#fbcb97` — top isometric lid, spark pixels, gradient highlight.
-  * **Terracotta**: `#9e4e24` — structural ribbon base anchor.
-  * **Dark Canvas**: `#121113` — background viewport & squircle app icon base.
-* **Asset Suite** (`assets/branding/`): Complete collection of high-resolution vector SVGs and raster PNGs:
-  * Logos: `mlforge-logo-primary.svg`, `mlforge-logo-transparent.svg`, `mlforge-logo-dark.svg`, `mlforge-logo-light.svg`, `mlforge-logo-with-tagline.svg`, monochrome white/dark.
-  * Icons: `mlforge-icon.svg`, `mlforge-app-icon.svg`, `mlforge-icon-dark.svg`, `mlforge-icon-light.svg`.
-  * Favicons: 16px to 512px PNGs and multi-resolution Windows/Web `favicon.ico`.
-
-### 🔤 Local Offline Typography
-* **Geist Sans** (400, 500, 600, 700): Headings, sidebar brand, navigation items, buttons, form controls, cards, tables, and metric hierarchy.
-* **Geist Mono** (400, 500, 600): Code blocks, technical telemetry, dataset statistics, and model parameters.
-* **100% Offline**: Embedded locally via WOFF2 `@font-face` base64 rules in `modules/fonts.py`. Zero external CDNs or Google Fonts.
-
-### ⚡ Startup Splash Screen
-* GPU-accelerated isometric 3D ribbon brand entrance and animated progress fill bar.
-* Session-state guarded: triggers once on startup and smoothly reveals the workspace.
+* **Color Palette**:
+  - Background: `#121113`
+  - Cards & Surfaces: `#121212` / `#181719`
+  - Primary Accent: `#e78a53` (Warm Copper)
+  - Secondary Accent: `#5f8787` (Slate Teal)
+  - Borders & Inputs: `#222222`
+* **Local Offline Typography**:
+  - **Geist Sans** (400, 500, 600, 700): Headings, navigation, forms, buttons, cards, and UI copy.
+  - **Geist Mono** (400, 500, 600): Code blocks, technical metrics, telemetry, and dataset statistics.
+  - *100% Offline*: Embedded directly via local WOFF2 `@font-face` definitions without external CDNs or Google Fonts.
+* **Startup Splash Screen**:
+  - GPU-accelerated isometric 3D ribbon brand animation and progress indicator.
+  - Session-state guarded: triggers once on startup and smoothly reveals the workspace.
 
 ---
 

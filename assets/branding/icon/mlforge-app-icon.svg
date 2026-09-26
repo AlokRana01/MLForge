@@ -1,49 +1,54 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
     <linearGradient id="appBg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#181719" />
-      <stop offset="100%" stop-color="#121113" />
+      <stop offset="0%" stop-color="#050b18" />
+      <stop offset="100%" stop-color="#0f172a" />
     </linearGradient>
     <linearGradient id="appBorder" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#e78a53" stop-opacity="0.6" />
-      <stop offset="100%" stop-color="#5f8787" stop-opacity="0.3" />
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#a855f7" stop-opacity="0.3" />
     </linearGradient>
-    <linearGradient id="appLeft" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#fbcb97" />
-      <stop offset="100%" stop-color="#e78a53" />
+    <linearGradient id="gradLeftTop" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#00d2ff" />
     </linearGradient>
-    <linearGradient id="appCrucible" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#5f8787" />
-      <stop offset="100%" stop-color="#527575" />
+    <linearGradient id="gradLeftPillar" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#00e5ff" />
+      <stop offset="100%" stop-color="#0066ff" />
     </linearGradient>
-    <linearGradient id="appRight" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#e78a53" />
-      <stop offset="100%" stop-color="#d87943" />
+    <linearGradient id="gradCenterRibbon" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0072ff" />
+      <stop offset="100%" stop-color="#4f46e5" />
+    </linearGradient>
+    <linearGradient id="gradBottomFold" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2563eb" />
+      <stop offset="100%" stop-color="#7c3aed" />
+    </linearGradient>
+    <linearGradient id="gradRightPillar" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7c3aed" />
+      <stop offset="60%" stop-color="#a855f7" />
+      <stop offset="100%" stop-color="#c084fc" />
     </linearGradient>
   </defs>
-  <!-- Squircle Base -->
   <rect x="16" y="16" width="480" height="480" rx="112" fill="url(#appBg)" stroke="url(#appBorder)" stroke-width="4" />
-  <!-- Center Symbol scaled to 340px centered at 256 -->
   <g transform="translate(86, 86) scale(3.4)">
-    
     <!-- Left Top Lid -->
-    <path d="M 14,32 L 32,20 L 44,28 L 26,40 Z" fill="#fbcb97" />
+    <path d="M 14,32 L 32,20 L 44,28 L 26,40 Z" fill="url(#gradLeftTop)" />
     <!-- Left Vertical Face -->
-    <path d="M 14,32 L 26,40 L 26,76 L 14,68 Z" fill="url(#appLeft)"  />
+    <path d="M 14,32 L 26,40 L 26,76 L 14,68 Z" fill="url(#gradLeftPillar)" />
     <!-- Center Descending Ribbon Fold -->
-    <path d="M 26,40 L 44,28 L 62,44 L 44,56 Z" fill="url(#appCrucible)"  />
+    <path d="M 26,40 L 44,28 L 62,44 L 44,56 Z" fill="url(#gradCenterRibbon)" />
     <!-- Center Ascending Ribbon Fold -->
-    <path d="M 26,76 L 44,88 L 60,74 L 42,62 Z" fill="#527575" />
+    <path d="M 26,76 L 44,88 L 60,74 L 42,62 Z" fill="url(#gradBottomFold)" />
     <!-- Right Arch & Pillar -->
-    <path d="M 62,44 L 78,32 L 78,74 L 66,74 L 66,54 L 44,56 Z" fill="url(#appRight)"  />
+    <path d="M 62,44 L 78,32 L 78,74 L 66,74 L 66,54 L 44,56 Z" fill="url(#gradRightPillar)" />
     <!-- Bottom Cap -->
-    <path d="M 14,68 L 26,76 L 36,84 L 24,76 Z" fill="#9e4e24" />
+    <path d="M 14,68 L 26,76 L 36,84 L 24,76 Z" fill="#0052cc" />
     <!-- Floating Data Pixels -->
-    <rect x="56" y="8" width="6.5" height="6.5" rx="1.2" fill="#fbcb97" />
-    <rect x="66" y="8" width="6.5" height="6.5" rx="1.2" fill="#e78a53" />
-    <rect x="50" y="18" width="6.5" height="6.5" rx="1.2" fill="#5f8787" />
-    <rect x="60" y="18" width="6.5" height="6.5" rx="1.2" fill="#d87943" />
-    <rect x="70" y="18" width="6.5" height="6.5" rx="1.2" fill="#fbcb97" />
-    
+    <rect x="56" y="8" width="6.5" height="6.5" rx="1.2" fill="#00e5ff" />
+    <rect x="66" y="8" width="6.5" height="6.5" rx="1.2" fill="#a855f7" />
+    <rect x="50" y="18" width="6.5" height="6.5" rx="1.2" fill="#00d2ff" />
+    <rect x="60" y="18" width="6.5" height="6.5" rx="1.2" fill="#38bdf8" />
+    <rect x="70" y="18" width="6.5" height="6.5" rx="1.2" fill="#c084fc" />
   </g>
 </svg>
