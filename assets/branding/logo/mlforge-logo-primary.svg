@@ -7,10 +7,8 @@
       letter-spacing: -0.03em;
       fill: #f3f4f6;
     }
-    @media (prefers-color-scheme: light) {
-      .brand-title {
-        fill: #121113;
-      }
+    .brand-forge {
+      fill: #e78a53;
     }
   </style>
   <g transform="translate(6, 0)">
@@ -33,5 +31,5 @@
     <rect x="60" y="18" width="6.5" height="6.5" rx="1.2" fill="#d87943" />
     <rect x="70" y="18" width="6.5" height="6.5" rx="1.2" fill="#fbcb97" />
   </g>
-  <text x="110" y="66" class="brand-title">MLForge</text>
+  <text x="110" y="66" class="brand-title">ML<tspan class="brand-forge">Forge</tspan></text>
 </svg>

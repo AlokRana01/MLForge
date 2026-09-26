@@ -123,15 +123,13 @@ def generate_svg_logos():
       letter-spacing: -0.03em;
       fill: {COLOR_TEXT_WHITE};
     }}
-    @media (prefers-color-scheme: light) {{
-      .brand-title {{
-        fill: {COLOR_TEXT_DARK};
-      }}
+    .brand-forge {{
+      fill: {COLOR_PRIMARY};
     }}
   </style>
   <g transform="translate(6, 0)">{exact_sidebar_symbol}
   </g>
-  <text x="110" y="66" class="brand-title">MLForge</text>
+  <text x="110" y="66" class="brand-title">ML<tspan class="brand-forge">Forge</tspan></text>
 </svg>"""
     (LOGO_DIR / "mlforge-logo-primary.svg").write_text(svg_primary, encoding="utf-8")
     (LOGO_DIR / "mlforge-logo-transparent.svg").write_text(svg_primary, encoding="utf-8")
