@@ -79,6 +79,67 @@ def render_splash_css(duration_sec: float = 4.0) -> str:
     z-index: 0;
 }}
 
+/* ── Animated Aurora Gradient Blobs ── */
+.mlforge-aurora {{
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}}
+
+/* Blob 1 — Warm Copper (top-left) */
+.mlforge-aurora-blob-1 {{
+    position: absolute;
+    width: 520px;
+    height: 520px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center,
+        rgba(231, 138, 83, 0.18) 0%,
+        rgba(231, 138, 83, 0.06) 50%,
+        transparent 70%
+    );
+    top: -120px;
+    left: -80px;
+    filter: blur(60px);
+    animation: auroraDrift1 9s ease-in-out infinite alternate;
+}}
+
+/* Blob 2 — Slate Teal (bottom-right) */
+.mlforge-aurora-blob-2 {{
+    position: absolute;
+    width: 480px;
+    height: 480px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center,
+        rgba(95, 135, 135, 0.16) 0%,
+        rgba(95, 135, 135, 0.05) 55%,
+        transparent 72%
+    );
+    bottom: -100px;
+    right: -60px;
+    filter: blur(70px);
+    animation: auroraDrift2 11s ease-in-out infinite alternate;
+}}
+
+/* Blob 3 — Luminous Peach (center accent) */
+.mlforge-aurora-blob-3 {{
+    position: absolute;
+    width: 340px;
+    height: 340px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center,
+        rgba(251, 203, 151, 0.10) 0%,
+        rgba(251, 203, 151, 0.03) 55%,
+        transparent 70%
+    );
+    top: 35%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+    filter: blur(50px);
+    animation: auroraDrift3 7s ease-in-out infinite alternate;
+}}
+
 .mlforge-splash-content {{
     position: relative;
     z-index: 1;
@@ -245,6 +306,27 @@ body:has(#mlforge-splash-wrapper) section.main {{
     }}
 }}
 
+@keyframes auroraDrift1 {{
+    0%   {{ transform: translate(0px, 0px) scale(1); }}
+    33%  {{ transform: translate(60px, 40px) scale(1.08); }}
+    66%  {{ transform: translate(30px, 80px) scale(0.95); }}
+    100% {{ transform: translate(80px, 20px) scale(1.05); }}
+}}
+
+@keyframes auroraDrift2 {{
+    0%   {{ transform: translate(0px, 0px) scale(1); }}
+    33%  {{ transform: translate(-50px, -30px) scale(1.06); }}
+    66%  {{ transform: translate(-80px, 20px) scale(0.97); }}
+    100% {{ transform: translate(-40px, -60px) scale(1.04); }}
+}}
+
+@keyframes auroraDrift3 {{
+    0%   {{ transform: translate(-50%, -50%) scale(1); }}
+    40%  {{ transform: translate(-50%, -50%) translate(40px, -30px) scale(1.12); }}
+    70%  {{ transform: translate(-50%, -50%) translate(-30px, 40px) scale(0.92); }}
+    100% {{ transform: translate(-50%, -50%) translate(20px, -50px) scale(1.08); }}
+}}
+
 @keyframes splashFadeOut {{
     0% {{
         opacity: 1;
@@ -308,6 +390,11 @@ def render_splash_html(duration_sec: float = 4.0) -> str:
 <div id="mlforge-splash-container">
 {css}
 <div id="mlforge-splash-wrapper" role="dialog" aria-label="MLForge Startup Screen" aria-modal="true">
+<div class="mlforge-aurora">
+<div class="mlforge-aurora-blob-1"></div>
+<div class="mlforge-aurora-blob-2"></div>
+<div class="mlforge-aurora-blob-3"></div>
+</div>
 <div class="mlforge-splash-content">
 <div class="mlforge-splash-logo">
 {_logo_svg}
