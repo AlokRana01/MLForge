@@ -227,22 +227,6 @@ def render_splash_css(duration_sec: float = 4.0) -> str:
     animation: splashStatusText {fill_duration:.2f}s ease 0.55s both;
 }}
 
-/* While splash wrapper is present: completely hide sidebar, collapsed control, header */
-body:has(#mlforge-splash-wrapper) section[data-testid="stSidebar"],
-body:has(#mlforge-splash-wrapper) [data-testid="stSidebar"],
-body:has(#mlforge-splash-wrapper) [data-testid="stSidebarCollapsedControl"],
-body:has(#mlforge-splash-wrapper) [data-testid="stHeader"] {{
-    display: none !important;
-    visibility: hidden !important;
-}}
-
-body:has(#mlforge-splash-wrapper) [data-testid="stAppViewContainer"] > .main,
-body:has(#mlforge-splash-wrapper) [data-testid="stMain"],
-body:has(#mlforge-splash-wrapper) section.main {{
-    margin-left: 0 !important;
-    width: 100vw !important;
-    max-width: 100vw !important;
-}}
 
 
 /* -------------------------------------------------------------

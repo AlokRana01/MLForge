@@ -20,13 +20,36 @@ import plotly.graph_objects as go
 from sklearn.pipeline import Pipeline
 from sklearn.inspection import permutation_importance
 
-# Safe SHAP import
-try:
-    import shap
-    _HAS_SHAP = True
-except Exception:
-    shap = None
-    _HAS_SHAP = False
+# Lazy SHAP import to eliminate 1.5s - 3.5s startup penalty
+_shap_instance = None
+_shap_checked = False
+
+
+def _ensure_shap() -> Any:
+    """Lazily load the SHAP library when explainability routines are executed."""
+    global _shap_instance, _shap_checked
+    if not _shap_checked:
+        _shap_checked = True
+        try:
+            import shap as _s
+            _shap_instance = _s
+        except Exception:
+            _shap_instance = None
+    return _shap_instance
+
+
+def _has_shap() -> bool:
+    """Return True if SHAP is available in the environment."""
+    return _ensure_shap() is not None
+
+
+def __getattr__(name: str) -> Any:
+    """Support module-level access to _HAS_SHAP and shap without eager startup imports."""
+    if name == "_HAS_SHAP":
+        return _has_shap()
+    if name == "shap":
+        return _ensure_shap()
+    raise AttributeError(f"module '{__name__}' has no attribute '{name}'")
 
 
 # =====================================================================
@@ -90,6 +113,7 @@ def inspect_model_family(model_obj: Any) -> Dict[str, Any]:
 
     # Kernel, distance, and probabilistic architectures
     kernel_distance_classes = ("SVC", "SVR", "KNeighborsClassifier", "GaussianNB")
+    has_shap = _has_shap()
 
     if cls_name in tree_classes:
         info["family"] = "Tree"
@@ -97,7 +121,7 @@ def inspect_model_family(model_obj: Any) -> Dict[str, Any]:
             info["has_native_importance"] = True
             info["native_importance_type"] = "feature_importances_"
         info["shap_explainer_type"] = "TreeExplainer"
-        info["supports_shap"] = _HAS_SHAP
+        info["supports_shap"] = has_shap
 
     elif cls_name in linear_classes:
         info["family"] = "Linear"
@@ -105,14 +129,14 @@ def inspect_model_family(model_obj: Any) -> Dict[str, Any]:
             info["has_native_importance"] = True
             info["native_importance_type"] = "coef_"
         info["shap_explainer_type"] = "LinearExplainer"
-        info["supports_shap"] = _HAS_SHAP
+        info["supports_shap"] = has_shap
 
     elif cls_name in kernel_distance_classes:
         info["family"] = "Kernel/Distance/Probabilistic"
         info["has_native_importance"] = False
         info["native_importance_type"] = None
         info["shap_explainer_type"] = "KernelExplainer"
-        info["supports_shap"] = _HAS_SHAP
+        info["supports_shap"] = has_shap
 
     else:
         # Generic heuristic fallback
@@ -121,18 +145,18 @@ def inspect_model_family(model_obj: Any) -> Dict[str, Any]:
             info["has_native_importance"] = True
             info["native_importance_type"] = "feature_importances_"
             info["shap_explainer_type"] = "TreeExplainer"
-            info["supports_shap"] = _HAS_SHAP
+            info["supports_shap"] = has_shap
         elif hasattr(raw_model, "coef_"):
             info["family"] = "Linear"
             info["has_native_importance"] = True
             info["native_importance_type"] = "coef_"
             info["shap_explainer_type"] = "LinearExplainer"
-            info["supports_shap"] = _HAS_SHAP
+            info["supports_shap"] = has_shap
         else:
             info["family"] = "Other"
             info["has_native_importance"] = False
             info["shap_explainer_type"] = "KernelExplainer"
-            info["supports_shap"] = _HAS_SHAP
+            info["supports_shap"] = has_shap
 
     return info
 
@@ -368,7 +392,7 @@ def compute_shap_explanations(
     - LinearExplainer for linear models (LogisticRegression, Ridge, Lasso)
     - Graceful fallback on failure or incompatibility.
     """
-    if not _HAS_SHAP:
+    if not _has_shap():
         return {
             "status": "unavailable",
             "is_available": False,
@@ -376,6 +400,7 @@ def compute_shap_explanations(
             "explainer_type": None
         }
 
+    shap = _ensure_shap()
     raw_model = get_underlying_model(pipeline_or_model)
     model_info = inspect_model_family(raw_model)
 
@@ -523,7 +548,7 @@ def explain_single_prediction(
     contributions = []
     base_val = 0.0
 
-    if _HAS_SHAP and X_background_raw is not None and len(X_background_raw) >= 5:
+    if _has_shap() and X_background_raw is not None and len(X_background_raw) >= 5:
         try:
             shap_res = compute_shap_explanations(
                 pipeline_or_model,
@@ -829,7 +854,7 @@ def render_model_explanation_ui(
 
     with tab_shap:
         st.markdown("#### SHAP (SHapley Additive exPlanations)")
-        if not _HAS_SHAP:
+        if not _has_shap():
             st.warning("SHAP library is not installed in the environment. Feature importance fallback is active.")
         else:
             st.caption("SHAP values provide theoretically unified local and global feature attribution.")

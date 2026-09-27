@@ -26,46 +26,43 @@ from modules.ui_theme import (
 # Apply Centralized Enterprise SaaS Stylesheet
 inject_custom_css()
 
-# Startup Splash Screen (Runs once per session)
+# Startup Splash Screen (Pure visual overlay, non-blocking, executes once per session)
 from modules.splash_screen import show_splash_screen
 
-qp = st.query_params
-force_splash = qp.get("splash_demo") in ["1", "true", "True"] or qp.get("splash") in ["1", "true", "True"]
-if force_splash and not st.session_state.get("_splash_forced_once", False):
-    st.session_state.splash_completed = False
-    st.session_state._splash_forced_once = True
+show_splash_screen(duration_sec=3.8)
 
-if not st.session_state.get("splash_completed", False):
-    show_splash_screen(duration_sec=3.8, force=True)
-    time.sleep(3.8)
-    st.session_state.splash_completed = True
-    st.rerun()
-
-
-
-#  Module imports 
+# Core lightweight module imports 
 from modules.file_loader import load_file
 from modules.profiling import get_basic_info, get_column_summary, get_numeric_stats, get_categorical_stats
 from modules.missing_handler import get_missing_summary, fill_missing_values, suggest_missing_strategy
 from modules.duplicate_handler import remove_duplicates
 from modules.exporter import export_data
-from modules.clustering import (prepare_clustering_data, run_kmeans, run_dbscan,
-                                run_agglomerative, reduce_to_2d, find_optimal_clusters,
-                                get_best_clustering, run_all_clustering)
 from modules.ai_recommender import recommend_clustering, generate_ai_report, recommend_model_export
 from modules.data_audit import (run_data_audit, render_audit_summary_cards,
                                 render_audit_full_dashboard, render_target_preflight_check)
-from modules.automl import (detect_problem_type, prepare_train_test_split,
-                            train_and_evaluate_models)
-from modules.evaluation import get_available_metrics, is_higher_better, METRIC_CONFIGS
-from modules.model_export.export_manager import export_model
-from modules.explainability import render_model_explanation_ui
-from modules.prediction_playground import render_prediction_playground_ui, extract_feature_schema
 from utils.icons import hgi, nav_icon, status_icon, card_icon, header_icon, inline_icon, icon_label, ICON_SIZE
+from utils.cache import (
+    cached_run_data_audit,
+    cached_get_basic_info,
+    cached_get_column_summary,
+    cached_get_numeric_stats,
+    cached_get_categorical_stats,
+    cached_compute_correlation,
+    cached_get_missing_summary,
+    cached_suggest_missing_strategy,
+    cached_get_preprocessing_recommendations,
+    cached_generate_ai_report,
+    cached_prepare_clustering_data,
+    cached_reduce_to_2d,
+    cached_find_optimal_clusters,
+    cached_parse_uploaded_file,
+    cached_load_benchmark_dataset,
+    cached_load_logo_svg,
+)
 
 #  Session State ─
 DEFAULTS = dict(df_raw=None, df_clean=None, df_cleaned_only=None, step=1,
-                theme="dark", splash_completed=True,
+                theme="dark", splash_completed=False,
                 trained_models={}, results_df=None, best_model_name=None,
                 problem_type=None, target_col=None, cluster_results=None,
                 X_train=None, y_train=None, X_test=None, y_test=None, ai_report=None,
@@ -89,8 +86,9 @@ def sh(icon, title, sub=""):
     render_step_header(st.session_state.step, title, sub)
 
 def footer():
-    st.markdown("""<div class="footer-bar">
-    <span>MLForge &nbsp;&bull;&nbsp; AutoML Workspace</span>
+    brand_svg = get_brand_symbol_svg(16, "dark")
+    st.markdown(f"""<div class="footer-bar">
+    <span>{brand_svg}&nbsp; MLForge &nbsp;&bull;&nbsp; AutoML Workspace</span>
     </div>""", unsafe_allow_html=True)
 
 def detect_problem_type(df, target_col):
@@ -108,7 +106,7 @@ def detect_problem_type(df, target_col):
 with st.sidebar:
     # Read the primary SVG logo and embed it inline for full gradient support
     _logo_path = Path(__file__).parent / "assets" / "branding" / "logo" / "mlforge-logo-primary.svg"
-    _logo_svg = _logo_path.read_text(encoding="utf-8") if _logo_path.exists() else ""
+    _logo_svg = cached_load_logo_svg(str(_logo_path)) if _logo_path.exists() else ""
     # Scale the SVG to fit sidebar width (viewBox stays 360x100, we set width/height)
     _logo_svg = _logo_svg.replace(
         'width="360" height="100"', 'width="200" height="56"'
@@ -319,7 +317,7 @@ if st.session_state.step == 1:
             st.session_state.df_clean = df_b.copy()
             st.session_state.target_col = t_col
             st.session_state.problem_type = p_type
-            st.session_state.audit_result = run_data_audit(df_b)
+            st.session_state.audit_result = cached_run_data_audit(df_b)
             st.session_state.step = 2
             st.rerun()
 
@@ -329,7 +327,7 @@ if st.session_state.step == 1:
         if df is not None:
             st.session_state.df_raw = df
             st.session_state.df_clean = df.copy()
-            st.session_state.audit_result = run_data_audit(df)
+            st.session_state.audit_result = cached_run_data_audit(df)
             st.success(f"Successfully loaded **{uploaded.name}** — {len(df):,} records × {len(df.columns)} features")
         else:
             render_structured_error(
@@ -386,16 +384,17 @@ elif st.session_state.step == 2:
     sh("", "Data Profiling & Quality Audit", "Understand your dataset, quality risks, and ML readiness")
     
     # Run or refresh diagnostic audit on the current dataset state
-    audit = run_data_audit(df)
+    # Cached: same df content → reuses previous result without recomputing
+    audit = cached_run_data_audit(df)
     st.session_state.audit_result = audit
 
     t0,t1,t2,t3,t4 = st.tabs(["ML Readiness Audit","Column Schema","Numeric Statistics","Categorical Statistics","Missing Patterns"])
     with t0:
         render_audit_full_dashboard(audit, key_suffix="profiling")
     with t1:
-        st.dataframe(get_column_summary(df), use_container_width=True, height=400)
+        st.dataframe(cached_get_column_summary(df), use_container_width=True, height=400)
     with t2:
-        ns = get_numeric_stats(df)
+        ns = cached_get_numeric_stats(df)
         if not ns.empty:
             st.dataframe(ns, use_container_width=True, height=350)
             num_cols = df.select_dtypes(include=[np.number]).columns.tolist()
@@ -406,7 +405,7 @@ elif st.session_state.step == 2:
                 st.plotly_chart(fig, use_container_width=True)
         else: st.info("No numeric columns.")
     with t3:
-        cs = get_categorical_stats(df)
+        cs = cached_get_categorical_stats(df)
         if not cs.empty: st.dataframe(cs, use_container_width=True, height=300)
         else: st.info("No categorical columns.")
     with t4:
@@ -418,13 +417,12 @@ elif st.session_state.step == 2:
             fig.update_layout(**PT, title="Missing Values by Column")
             st.plotly_chart(fig, use_container_width=True)
         else: st.success("No missing values detected in dataset.")
-    num_df = df.select_dtypes(include=[np.number])
-    if len(num_df.columns) > 1:
+    _corr = cached_compute_correlation(df)
+    if not _corr.empty:
         st.markdown("#### Feature Correlation Matrix")
-        corr = num_df.corr()
-        fig = go.Figure(go.Heatmap(z=corr.values, x=corr.columns, y=corr.index,
+        fig = go.Figure(go.Heatmap(z=_corr.values, x=_corr.columns, y=_corr.index,
             colorscale=[[0,"#5f8787"],[.5,"#181719"],[1,"#e78a53"]],
-            text=np.round(corr.values,2), texttemplate="%{text}"))
+            text=np.round(_corr.values,2), texttemplate="%{text}"))
         fig.update_layout(**PT, title="Correlation Matrix"); st.plotly_chart(fig, use_container_width=True)
     render_step_navigation(
         back_step=1,
@@ -449,7 +447,8 @@ elif st.session_state.step == 3:
 
     df = st.session_state.df_clean
     sh("", "Handle Missing Values", "Choose strategy per column")
-    miss_df = get_missing_summary(df)
+    # Cached: avoids per-column isna() scan on every widget interaction
+    miss_df = cached_get_missing_summary(df)
     if miss_df.empty:
         st.markdown("""<div class="ai-card">
         <span class="badge badge-success">CLEAN</span>
@@ -457,7 +456,8 @@ elif st.session_state.step == 3:
     else:
         st.markdown(f"**{len(miss_df)} column(s) have missing values:**")
         st.dataframe(miss_df, use_container_width=True)
-        suggested = suggest_missing_strategy(df)
+        # Cached: avoids skewness computation per column on every rerun
+        suggested = cached_suggest_missing_strategy(df)
         st.markdown("#### Configure Fill Strategy")
         st.markdown("""<div class="ai-card"><strong>Automated Strategy Recommendation:</strong>
         Strategies inferred based on data skewness and distribution. Customize per column as required.</div>""", unsafe_allow_html=True)
@@ -592,54 +592,8 @@ elif st.session_state.step == 5:
 
     #  Smart AI Guide ─
     st.markdown("### AI Preprocessing Recommendations")
-    ai_rows = []
-    for col in df.columns:
-        dtype = str(df[col].dtype)
-        n_unique = df[col].nunique()
-        n_total  = len(df)
-        is_num   = pd.api.types.is_numeric_dtype(df[col])
-        is_cat   = dtype in ("object","category") or not is_num
-
-        if is_num:
-            col_data = df[col].dropna()
-            try:
-                rng   = float(col_data.max() - col_data.min())
-                skew  = float(col_data.skew())
-                std   = float(col_data.std())
-            except Exception:
-                rng = skew = std = 0
-
-            if rng > 100 or std > 10:
-                if abs(skew) > 1:
-                    action = "RobustScaler"
-                    reason = f"High skew ({skew:.2f}) + large range ({rng:.0f}) — robust to outliers"
-                else:
-                    action = "StandardScaler"
-                    reason = f"Large range ({rng:.0f}), std={std:.2f} — normalize to zero mean"
-            elif rng > 1:
-                action = "MinMaxScaler"
-                reason = f"Moderate range ({rng:.2f}) — scale to 0-1"
-            else:
-                action = "Optional / Skip"
-                reason = "Already small range — scaling may not be needed"
-        else:
-            if n_unique > 50:
-                action = "Drop or Hash"
-                reason = f"Very high cardinality ({n_unique} unique) — likely an ID or free-text, drop it"
-            elif n_unique > 10:
-                action = "Label Encoding"
-                reason = f"High cardinality ({n_unique} unique) — label encoding preferred"
-            elif n_unique > 2:
-                action = "One-Hot Encoding"
-                reason = f"Low cardinality ({n_unique} unique) — safe for one-hot"
-            else:
-                action = "Label Encoding"
-                reason = f"Binary / bool ({n_unique} unique) — simple label encoding"
-
-        ai_rows.append({"Column": col, "Type": dtype, "Unique Values": n_unique,
-                        "Recommended Action": action, "Reason": reason})
-
-    ai_guide_df = pd.DataFrame(ai_rows)
+    # Cached: the per-column stats loop previously re-ran on every widget interaction
+    ai_guide_df = cached_get_preprocessing_recommendations(df)
 
     def _style_action(val):
         if "Drop" in val:   return "background:rgba(255,107,107,.15);color:#ff6b6b"
@@ -743,12 +697,12 @@ elif st.session_state.step == 5:
     with tab4:
         st.markdown("#### Preprocessed Dataset Summary")
         df_now = st.session_state.df_clean
-        info = get_basic_info(df_now)
+        info = cached_get_basic_info(df_now)
         c1,c2,c3 = st.columns(3)
         c1.markdown(mc(f"{info['rows']:,}", "Rows"), unsafe_allow_html=True)
         c2.markdown(mc(f"{info['columns']:,}", "Columns"), unsafe_allow_html=True)
         c3.markdown(mc(f"{int(df_now.isna().sum().sum()):,}", "Missing"), unsafe_allow_html=True)
-        st.dataframe(get_column_summary(df_now), use_container_width=True, height=300)
+        st.dataframe(cached_get_column_summary(df_now), use_container_width=True, height=300)
         if st.session_state.preprocessing_log:
             st.markdown("#### Preprocessing Action Log")
             for i,log in enumerate(st.session_state.preprocessing_log):
@@ -902,12 +856,12 @@ elif st.session_state.step == 7:
     _default_target = st.session_state.target_col if st.session_state.target_col in all_cols else all_cols[-1]
     _ai_target = _default_target
 
-    if st.session_state.ai_report is None or st.session_state.target_col != _ai_target:
-        with st.spinner("Analyzing dataset characteristics..."):
-            report = generate_ai_report(df, _ai_target)
-        st.session_state.ai_report = report
+    # cached_generate_ai_report handles deduplication: same df + target_col → cached result.
+    # session_state.ai_report is kept in sync for other pages that read it.
+    report = cached_generate_ai_report(df, _ai_target)
+    st.session_state.ai_report = report
+    if st.session_state.target_col != _ai_target:
         st.session_state.target_col = _ai_target
-    report = st.session_state.ai_report
 
     with st.expander("Automated Dataset Intelligence & Recommendations", expanded=False):
         cc = st.columns(4)
@@ -936,13 +890,12 @@ elif st.session_state.step == 7:
     target_col = st.selectbox("Target Column (Prediction Objective)", all_cols,
         index=all_cols.index(_default_target) if _default_target in all_cols else len(all_cols)-1)
 
-    # Refresh AI if target changed
+    # Refresh AI if target changed — cached_generate_ai_report returns cached result
+    # if df + target_col were already computed; otherwise computes fresh.
     if target_col != st.session_state.target_col:
-        with st.spinner("Re-evaluating target..."):
-            report = generate_ai_report(df, target_col)
+        report = cached_generate_ai_report(df, target_col)
         st.session_state.ai_report = report
         st.session_state.target_col = target_col
-        report = st.session_state.ai_report
 
     auto_type = detect_problem_type(df, target_col)
 
@@ -960,12 +913,14 @@ elif st.session_state.step == 7:
         st.markdown(f"<span style='font-size:0.8rem;color:var(--muted)'>Inferred Task:</span> <span class='badge badge-primary'>{auto_type.upper()}</span>", unsafe_allow_html=True)
 
     # Pre-Flight Target & Quality Audit Check
-    target_audit = run_data_audit(df, target_col=target_col)
+    # Cached: audit with target_col runs on every rerun of Step 7
+    target_audit = cached_run_data_audit(df, target_col=target_col)
     st.session_state.audit_target_result = target_audit
     render_target_preflight_check(target_audit)
 
     # Validation Setup & Configurable Optimization Metric
     st.markdown("#### Validation & Optimization Setup")
+    from modules.evaluation import get_available_metrics, is_higher_better, METRIC_CONFIGS
     avail_metrics = get_available_metrics(task_type)
     default_metric = "F1 Score" if task_type == "classification" else "R2 Score"
     default_idx = avail_metrics.index(default_metric) if default_metric in avail_metrics else 0
@@ -1039,6 +994,9 @@ elif st.session_state.step == 7:
             is_imbalanced = False
             if st.session_state.audit_target_result and st.session_state.audit_target_result.target_analysis:
                 is_imbalanced = st.session_state.audit_target_result.target_analysis.is_severely_imbalanced
+
+            from modules.automl import prepare_train_test_split, train_and_evaluate_models
+            from modules.prediction_playground import extract_feature_schema
 
             X_train, X_test, y_train, y_test, num_cols, cat_cols = prepare_train_test_split(
                 df,
@@ -1185,6 +1143,7 @@ elif st.session_state.step == 7:
                     fmt_opt = st.selectbox("Format", ["joblib", "pickle", "onnx"], key="export_fmt_step7")
                 with fc2:
                     st.markdown("<br>", unsafe_allow_html=True)
+                    from modules.model_export.export_manager import export_model
                     X_s = st.session_state.X_test.iloc[:5] if st.session_state.X_test is not None else None
                     data, mime = export_model(best_obj, fmt_opt, X_s)
                     if data:
@@ -1201,6 +1160,7 @@ elif st.session_state.step == 7:
 
         # Model Explanation Section
         st.markdown("---")
+        from modules.explainability import render_model_explanation_ui
         render_model_explanation_ui(
             pipeline_or_model=best_obj,
             model_name=best_name,
@@ -1212,6 +1172,7 @@ elif st.session_state.step == 7:
 
         # Prediction Playground Section
         st.markdown("---")
+        from modules.prediction_playground import render_prediction_playground_ui
         render_prediction_playground_ui(
             trained_models=trained_models,
             default_model_name=best_name,
@@ -1245,9 +1206,11 @@ elif st.session_state.step == 8:
         st.stop()
 
     sh("", "Cluster Visualizer", "Clustering analysis + interactive data graph builder")
+    from modules.clustering import get_best_clustering, run_all_clustering
 
     df_c = st.session_state.df_clean
-    _, scaled = prepare_clustering_data(df_c)
+    # Cached: StandardScaler.fit_transform was running on every rerun of Step 8
+    _, scaled = cached_prepare_clustering_data(df_c)
 
     if scaled is None:
         st.warning("Not enough numeric data for clustering. Need ≥2 numeric columns & ≥5 rows.")
@@ -1256,13 +1219,15 @@ elif st.session_state.step == 8:
         st.markdown("### Clustering Analysis")
         clust_rec = recommend_clustering(df_c)
 
-        # Run all 3 algorithms
+        # Run all 3 algorithms (also guarded by session_state for backward compatibility)
         if st.session_state.cluster_results is None:
             with st.spinner("Running KMeans, DBSCAN & Agglomerative..."):
+                from modules.clustering import run_all_clustering
                 st.session_state.cluster_results = run_all_clustering(scaled)
         all_clust = st.session_state.cluster_results
 
-        reduced = reduce_to_2d(scaled)
+        # Cached: PCA was re-running on every rerun of Step 8
+        reduced = cached_reduce_to_2d(scaled)
         best_c, best_cs = get_best_clustering(all_clust)
 
         # Build display df
@@ -1314,7 +1279,8 @@ elif st.session_state.step == 8:
 
             # Elbow curve
             with st.expander("KMeans Elbow Curve (Optimal K finder)", expanded=False):
-                Ks, inertias = find_optimal_clusters(scaled)
+                # Cached: KMeans sweep previously re-ran every time the expander was opened
+                Ks, inertias = cached_find_optimal_clusters(scaled)
                 valid = [(k,i) for k,i in zip(Ks,inertias) if i is not None]
                 if valid:
                     kv,iv = zip(*valid)
@@ -1586,7 +1552,7 @@ elif st.session_state.step == 9:
                     ws(pd.DataFrame(cover_data, columns=["Field","Value"]), "Cover")
 
                     if selected.get("Dataset Overview") and df_clean is not None:
-                        info = get_basic_info(df_clean)
+                        info = cached_get_basic_info(df_clean)
                         ws(pd.DataFrame([
                             ["Total Rows", f"{info['rows']:,}"],
                             ["Total Columns", str(info["columns"])],
@@ -1597,16 +1563,14 @@ elif st.session_state.step == 9:
                         ], columns=["Metric","Value"]), "Overview")
 
                     if selected.get("Column Profiling Summary") and df_clean is not None:
-                        ws(get_column_summary(df_clean), "Column Summary")
-                        ns = get_numeric_stats(df_clean)
+                        ws(cached_get_column_summary(df_clean), "Column Summary")
+                        ns = cached_get_numeric_stats(df_clean)
                         if not ns.empty: ws(ns, "Numeric Stats")
                         
-                        # Add correlation matrix
-                        numeric_cols = df_clean.select_dtypes(include=['number']).columns
-                        if len(numeric_cols) > 1:
-                            corr = df_clean[numeric_cols].corr()
-                            # Reset index to include column names in the sheet
-                            corr_export = corr.reset_index().rename(columns={'index': 'Feature'})
+                        # Add correlation matrix — cached: avoids recomputing O(cols²×rows)
+                        _corr_excel = cached_compute_correlation(df_clean)
+                        if not _corr_excel.empty:
+                            corr_export = _corr_excel.reset_index().rename(columns={'index': 'Feature'})
                             ws(corr_export, "Correlation Matrix")
 
                     if selected.get("Preprocessing Steps") and st.session_state.preprocessing_log:
@@ -1966,7 +1930,7 @@ elif st.session_state.step == 9:
                 ]
 
                 if selected.get("Dataset Overview") and df_clean is not None:
-                    info = get_basic_info(df_clean)
+                    info = cached_get_basic_info(df_clean)
                     story += [sec_hdr("Dataset Overview"), Spacer(1,4)]
                     data = [["Metric","Value"],
                             ["Total Rows", f"{info['rows']:,}"],
@@ -1978,13 +1942,13 @@ elif st.session_state.step == 9:
 
                 if selected.get("Column Profiling Summary") and df_clean is not None:
                     story += [sec_hdr("Column Profiling"), Spacer(1,4)]
-                    cs = get_column_summary(df_clean)
+                    cs = cached_get_column_summary(df_clean)
                     hdr_r = list(cs.columns)
                     rows_r = [[str(v) for v in r] for _,r in cs.head(15).iterrows()]
                     cw_r = [(W-3.6*cm)/len(hdr_r)]*len(hdr_r)
                     story += [make_table([hdr_r]+rows_r, cw=cw_r, alt=BGTL, hdr=PRP), Spacer(1,10)]
                     
-                    ns = get_numeric_stats(df_clean)
+                    ns = cached_get_numeric_stats(df_clean)
                     if not ns.empty:
                         story += [sec_hdr("Numeric Stats", color=colors.HexColor("#00608A")), Spacer(1,4)]
                         hdr_ns = list(ns.columns)
@@ -1992,10 +1956,10 @@ elif st.session_state.step == 9:
                         cw_ns = [(W-3.6*cm)/len(hdr_ns)]*len(hdr_ns)
                         story += [make_table([hdr_ns]+rows_ns, cw=cw_ns, alt=colors.HexColor("#E8FFF9"), hdr=colors.HexColor("#00608A")), Spacer(1,10)]
                     
-                    numeric_cols = df_clean.select_dtypes(include=['number']).columns
-                    if len(numeric_cols) > 1:
-                        corr = df_clean[numeric_cols].corr()
-                        corr_export = corr.reset_index().rename(columns={'index': 'Feature'})
+                    # Cached: avoids recomputing corr() O(cols²×rows) for PDF report
+                    _corr_pdf = cached_compute_correlation(df_clean)
+                    if not _corr_pdf.empty:
+                        corr_export = _corr_pdf.reset_index().rename(columns={'index': 'Feature'})
                         story += [sec_hdr("Correlation Matrix", color=PRP), Spacer(1,4)]
                         hdr_c = list(corr_export.columns)
                         rows_c = [[str(round(v,4) if isinstance(v,float) else v)[:8] for v in r] for _,r in corr_export.iterrows()]
@@ -2200,7 +2164,7 @@ elif st.session_state.step == 9:
 
                 if selected.get("Dataset Overview") and df_clean is not None:
                     add_sec("","Dataset Overview")
-                    info = get_basic_info(df_clean)
+                    info = cached_get_basic_info(df_clean)
                     add_table(pd.DataFrame([
                         ["Total Rows",f"{info['rows']:,}"],["Total Columns",str(info["columns"])],
                         ["Missing (post-clean)",str(int(df_clean.isna().sum().sum()))],
@@ -2209,17 +2173,17 @@ elif st.session_state.step == 9:
 
                 if selected.get("Column Profiling Summary") and df_clean is not None:
                     add_sec("","Column Profiling", rgb=(0x00,0x60,0x8A))
-                    add_table(get_column_summary(df_clean), hdr_hex="00608A", alt_hex="E8FFF9", max_rows=30)
+                    add_table(cached_get_column_summary(df_clean), hdr_hex="00608A", alt_hex="E8FFF9", max_rows=30)
                     
-                    ns = get_numeric_stats(df_clean)
+                    ns = cached_get_numeric_stats(df_clean)
                     if not ns.empty:
                         add_sec("","Numeric Stats", rgb=(0x00,0xD4,0xAA))
                         add_table(ns, hdr_hex="00D4AA", alt_hex="E8FFF9", max_rows=30)
                         
-                    numeric_cols = df_clean.select_dtypes(include=['number']).columns
-                    if len(numeric_cols) > 1:
-                        corr = df_clean[numeric_cols].corr()
-                        corr_export = corr.reset_index().rename(columns={'index': 'Feature'})
+                    # Cached: avoids recomputing corr() O(cols²×rows) for Word report
+                    _corr_word = cached_compute_correlation(df_clean)
+                    if not _corr_word.empty:
+                        corr_export = _corr_word.reset_index().rename(columns={'index': 'Feature'})
                         add_sec("","Correlation Matrix", rgb=(0x7C,0x5C,0xFC))
                         add_table(corr_export, hdr_hex="7C5CFC", alt_hex="F0EEFF", max_rows=30)
 
@@ -2421,6 +2385,7 @@ elif st.session_state.step == 9:
         trained_models = st.session_state.get("trained_models", {})
         if best_name and best_name in trained_models:
             model_obj = trained_models[best_name]
+            from modules.model_export.export_manager import export_model
             f_type = m_fmt.split()[0].lower()
             X_sample = st.session_state.get("X_test")
             if X_sample is None: X_sample = st.session_state.get("df_clean")
@@ -2460,6 +2425,7 @@ elif st.session_state.step == 9:
 
 elif st.session_state.step == 10:
     sh("", "Prediction Playground & Explanations", "Interactive inference and local prediction attribution")
+    from modules.prediction_playground import render_prediction_playground_ui
     render_prediction_playground_ui(
         trained_models=st.session_state.get("trained_models", {}),
         default_model_name=st.session_state.get("best_model_name"),
@@ -2498,6 +2464,7 @@ elif st.session_state.step == 11:
         st.stop()
 
     sh("", "Model Explainability & Interpretability", "Inspect global feature importances, TreeSHAP/LinearSHAP attribution, and local prediction decisions")
+    from modules.explainability import render_model_explanation_ui
     render_model_explanation_ui(
         pipeline_or_model=best_obj,
         model_name=best_name,

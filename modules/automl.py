@@ -26,26 +26,6 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler, RobustScaler, OneHotEncoder
 from sklearn.model_selection import train_test_split, KFold, StratifiedKFold, RandomizedSearchCV
 
-# Classifiers
-from sklearn.linear_model import LogisticRegression
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import (
-    RandomForestClassifier, GradientBoostingClassifier, ExtraTreesClassifier,
-    HistGradientBoostingClassifier
-)
-from sklearn.svm import SVC
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.naive_bayes import GaussianNB
-
-# Regressors
-from sklearn.linear_model import LinearRegression, Ridge, Lasso, ElasticNet
-from sklearn.tree import DecisionTreeRegressor
-from sklearn.ensemble import (
-    RandomForestRegressor, GradientBoostingRegressor, ExtraTreesRegressor,
-    HistGradientBoostingRegressor
-)
-from sklearn.svm import SVR
-
 # Evaluation utilities
 from modules.evaluation import (
     evaluate_model, evaluate_classification, evaluate_regression,
@@ -337,6 +317,16 @@ def get_default_models(
     cw = "balanced" if is_imbalanced else None
 
     if problem_type == "classification":
+        from sklearn.linear_model import LogisticRegression
+        from sklearn.tree import DecisionTreeClassifier
+        from sklearn.ensemble import (
+            RandomForestClassifier, GradientBoostingClassifier, ExtraTreesClassifier,
+            HistGradientBoostingClassifier
+        )
+        from sklearn.svm import SVC
+        from sklearn.neighbors import KNeighborsClassifier
+        from sklearn.naive_bayes import GaussianNB
+
         return {
             "LogisticRegression": LogisticRegression(max_iter=2000, random_state=random_state, class_weight=cw),
             "DecisionTree": DecisionTreeClassifier(random_state=random_state, class_weight=cw),
@@ -349,6 +339,14 @@ def get_default_models(
             "NaiveBayes": GaussianNB()
         }
     else:
+        from sklearn.linear_model import LinearRegression, Ridge, Lasso, ElasticNet
+        from sklearn.tree import DecisionTreeRegressor
+        from sklearn.ensemble import (
+            RandomForestRegressor, GradientBoostingRegressor, ExtraTreesRegressor,
+            HistGradientBoostingRegressor
+        )
+        from sklearn.svm import SVR
+
         return {
             "LinearRegression": LinearRegression(),
             "Ridge": Ridge(random_state=random_state),
